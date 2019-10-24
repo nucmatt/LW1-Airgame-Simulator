@@ -1,0 +1,15 @@
+{
+  "name": "lw1_airgame_simulator",
+  "version": "1.0.0",
+  "description": "airgame simulator for Long War 1.0",
+  "main": "index.js",
+  "scripts": {
+    "sass": "node-sass -w scss/ -o dist/css/ --recursive"
+  },
+  "author": "Matthew Wessel",
+  "license": "MIT",
+  "dependencies": {
+    "i": "^0.3.6",
+    "node-sass": "^4.13.0"
+  }
+}
