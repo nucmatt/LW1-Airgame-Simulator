@@ -4,3 +4,31 @@ body {
   background: $primary-color;
   color: #fff;
 }
+
+#interceptors,
+#strategy_layer {
+  div {
+    display: inline-block;
+  }
+}
+
+.interceptor,
+#strategy_layer {
+  span {
+    display: block;
+  }
+}
+
+table {
+    border: 3px solid #fff;
+    border-collapse: collapse;
+
+    .blank {
+        display: none;
+    }
+}
+
+td, th {
+    border: 1px dotted  #fff;
+    padding: 0.2rem;
+}

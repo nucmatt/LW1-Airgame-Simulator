@@ -8,6 +8,379 @@
     <title>LW1 Airgame Simulator</title>
   </head>
   <body>
-    <h1>Hello!</h1>
+    <main>
+      <div id="interceptors">
+        <div class="interceptor blue" id="interceptor1">
+          <h1>Interceptor 1</h1>
+          <span class="int_type"
+            >Type:
+            <select name="" id="" class="int_type">
+              <option value="Interceptor" selected>Interceptor</option>
+              <option value="Firestorm">Firestorm</option>
+            </select>
+          </span>
+          <span>
+            Pilot Kills:
+            <input type="number" class="kills" />
+          </span>
+          <span>
+            Weapon:
+            <select name="" id="" class="int_wpn">
+              <option value="Avalanche" selected>Avalanche</option>
+              <option value="Stingray">Stingray</option>
+              <option value="Phoenix">Phoenix Cannon</option>
+              <option value="Laser">Laser Cannon</option>
+              <option value="Plasma">Plasma Cannon</option>
+              <option value="EMP">EMP Cannon</option>
+              <option value="Fusion">Fusion Lance</option>
+            </select>
+          </span>
+          <span>
+            Stance:
+            <select name="" id="" class="stance">
+              <option value="Defensive">Defensive</option>
+              <option value="Balanced" selected>Balanced</option>
+              <option value="Aggressive">Aggressive</option>
+            </select>
+          </span>
+          <span>
+            Death Abort%:
+            <input
+              type="number"
+              class="deathabort"
+              value="25"
+              min="0"
+              max="100"
+            />
+          </span>
+          <span>
+            Kill Abort%:
+            <input
+              type="number"
+              class="killabort"
+              value="0"
+              min="0"
+              max="100"
+            />
+          </span>
+          <span> Aim Module <input type="checkbox" class="aimmod" /> </span>
+          <span> Dodge Module <input type="checkbox" class="dodgemod" /> </span>
+        </div>
+        <div class="interceptor green" id="interceptor2">
+          <h1>Interceptor 2</h1>
+          <span class="int_type"
+            >Type:
+            <select name="" id="" class="int_type">
+              <option value="Interceptor" selected>Interceptor</option>
+              <option value="Firestorm">Firestorm</option>
+            </select>
+          </span>
+          <span>
+            Pilot Kills:
+            <input type="number" class="kills" />
+          </span>
+          <span>
+            Weapon:
+            <select name="" id="" class="int_wpn">
+              <option value="Avalanche" selected>Avalanche</option>
+              <option value="Stingray">Stingray</option>
+              <option value="Phoenix">Phoenix Cannon</option>
+              <option value="Laser">Laser Cannon</option>
+              <option value="Plasma">Plasma Cannon</option>
+              <option value="EMP">EMP Cannon</option>
+              <option value="Fusion">Fusion Lance</option>
+            </select>
+          </span>
+          <span>
+            Stance:
+            <select name="" id="" class="stance">
+              <option value="Defensive">Defensive</option>
+              <option value="Balanced" selected>Balanced</option>
+              <option value="Aggressive">Aggressive</option>
+            </select>
+          </span>
+          <span>
+            Death Abort%:
+            <input
+              type="number"
+              class="deathabort"
+              value="25"
+              min="0"
+              max="100"
+            />
+          </span>
+          <span>
+            Kill Abort%:
+            <input
+              type="number"
+              class="killabort"
+              value="0"
+              min="0"
+              max="100"
+            />
+          </span>
+          <span> Aim Module <input type="checkbox" class="aimmod" /> </span>
+          <span> Dodge Module <input type="checkbox" class="dodgemod" /> </span>
+        </div>
+        <div class="interceptor red" id="interceptor3">
+          <h1>Interceptor 3</h1>
+          <span class="int_type"
+            >Type:
+            <select name="" id="" class="int_type">
+              <option value="Interceptor" selected>Interceptor</option>
+              <option value="Firestorm">Firestorm</option>
+            </select>
+          </span>
+          <span>
+            Pilot Kills:
+            <input type="number" class="kills" />
+          </span>
+          <span>
+            Weapon:
+            <select name="" id="" class="int_wpn">
+              <option value="Avalanche" selected>Avalanche</option>
+              <option value="Stingray">Stingray</option>
+              <option value="Phoenix">Phoenix Cannon</option>
+              <option value="Laser">Laser Cannon</option>
+              <option value="Plasma">Plasma Cannon</option>
+              <option value="EMP">EMP Cannon</option>
+              <option value="Fusion">Fusion Lance</option>
+            </select>
+          </span>
+          <span>
+            Stance:
+            <select name="" id="" class="stance">
+              <option value="Defensive">Defensive</option>
+              <option value="Balanced" selected>Balanced</option>
+              <option value="Aggressive">Aggressive</option>
+            </select>
+          </span>
+          <span>
+            Death Abort%:
+            <input
+              type="number"
+              class="deathabort"
+              value="25"
+              min="0"
+              max="100"
+            />
+          </span>
+          <span>
+            Kill Abort%:
+            <input
+              type="number"
+              class="killabort"
+              value="0"
+              min="0"
+              max="100"
+            />
+          </span>
+          <span>
+            Aim Module
+            <input type="checkbox" class="aim_mod" />
+          </span>
+          <span>
+            Dodge Module
+            <input type="checkbox" class="dodge_mod" />
+          </span>
+        </div>
+      </div>
+      <div id="strategy_layer">
+        <div>
+          <h1>XCOM Strategy</h1>
+          <span>
+            Sequential Interceptions:
+            <input type="checkbox" id="seq_int" />
+          </span>
+          <span>
+            UFO Analysis:
+            <input type="checkbox" id="ufo_analysis" />
+          </span>
+          <span>
+            Friendly Skies:
+            <input type="checkbox" id="frnd_skies" />
+          </span>
+          <span>
+            Campaign Date:
+            <input type="date" id="game_date" />
+          </span>
+        </div>
+        <div>
+          <h1>Foundry Projects Completed</h1>
+          <div>
+            <span>
+              Armored Fighters:
+              <input type="checkbox" id="AF" />
+            </span>
+            <span>
+              Elerium Afterburners:
+              <input type="checkbox" id="afterburners" />
+            </span>
+            <span>
+              Enhanced Avionics:
+              <input type="checkbox" id="avionics" />
+            </span>
+            <span>
+              Penetrator Weapons:
+              <input type="checkbox" id="pen_wpns" />
+            </span>
+          </div>
+          <div>
+            <span>
+              Phoenix Coilguns:
+              <input type="checkbox" id="coilguns" />
+            </span>
+            <span>
+              Pulse Lasers:
+              <input type="checkbox" id="pulse" />
+            </span>
+            <span>
+              Wingtip Sparrowhawks:
+              <input type="checkbox" id="sparrowhawks" />
+            </span>
+            <span>
+              UFO Countermeasures:
+              <input type="checkbox" id="countermeasures" />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div id="ufo">
+        <h1 id="ufo">UFO</h1>
+        <span>
+          Type:
+          <select name="" id="ufo_type">
+            <option value="scout">Scout</option>
+            <option value="fighter">Fighter</option>
+            <option value="raider">Raider</option>
+            <option value="destroyer">Destroyer</option>
+            <option value="harvester">Harvester</option>
+            <option value="abductor">Abductor</option>
+            <option value="transport">Transport</option>
+            <option value="terror">Terror</option>
+            <option value="battleship">Battleship</option>
+            <option value="assault_carrier">Assault Carrier</option>
+            <option value="overseer">Overseer</option>
+          </select>
+        </span>
+        <span>
+          Alien Research:
+          <input type="number" />
+        </span>
+        <span>
+          Starting Health(%):
+          <input type="number" value="100" min="1" max="100" />
+        </span>
+        <span>
+          Altitude:
+          <select name="" id="altitude">
+            <option value="low">Low</option>
+            <option value="high">High</option>
+            <option value="noe">NOE</option>
+          </select>
+        </span>
+      </div>
+      <div id="results">
+        <h1>Simulation Results</h1>
+        <table>
+          <tr>
+            <th><span class="blank">Blank</span></th>
+            <th>Blue Ranger</th>
+            <th>Green Hornet</th>
+            <th>Red Devil</th>
+          </tr>
+          <tr>
+            <td>Kill %</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>% Kills Destroyed</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ave. XCOM HP</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Kill Abort %</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ave. UFO HP</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ave. XCOM HP</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Stalemate %</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ave. UFO HP</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ave. XCOM HP</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Death Abort %</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ave. UFO HP</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ave. Engage Time</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Death %</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ave. UFO HP</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ave. Engage Time</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </main>
   </body>
 </html>
