@@ -1,28 +1,40 @@
 var airCombat = {
   ufoHealth: 1000,
-  hitChance: 80,
-  effDmg: 200,
+  ufoHitChance: 50,
+  ufoShotDelay: 2000,
+  ufoEffDmg: 200,
+  xcomHealth: 1000,
+  xcomHitChance: 80,
+  xcomShotDelay: 2000,
+  xcomEffDmg: 200,
+  interceptionTime: 8000,
 
-  shoot: function(hitChance) {
-    let shot = Math.floor(Math.random() * 100 + 1);
-    if (shot <= this.hitChance) {
-      console.log(shot + " hit");
-      return this.rollDmg();
+  shoot: function() {
+    if (this.shotChance() <= this.xcomHitChance) {
+      return this.rollDmg(this.xcomEffDmg, this.ufoHealth);
     } else {
-      return console.log(shot + " miss");
+      return console.log("miss");
     }
   },
 
-  rollDmg: function(effDmg, ufoHealth) {
-    let shotDmg = Math.round(this.effDmg * (Math.random() * 0.5 + 1));
+  rollDmg: function(effDmg, health) {
+    let shotDmg = Math.round(effDmg * (Math.random() * 0.5 + 1));
     console.log(shotDmg);
-    return (this.ufoHealth -= shotDmg);
+    return this.ufoHealth -= shotDmg;
+  },
+
+  shotChance: function() {
+    return Math.floor(Math.random() * 100 + 1);
   }
 };
 
-while (airCombat.ufoHealth > 0) {
+timer = Math.floor(Math.random() * 2000);
+
+while (airCombat.ufoHealth > 0 && timer < airCombat.interceptionTime) {
+  console.log(timer);
   console.log(airCombat.shoot());
-  console.log(airCombat.ufoHealth);
+  timer += airCombat.xcomShotDelay;
+  console.log(timer);
 }
 // console.log(airCombat.shoot());
 // console.log(airCombat.rollDmg());
