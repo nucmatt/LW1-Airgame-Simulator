@@ -11,7 +11,7 @@ let interceptor = {
 let ufo = {
   health: 1000,
   hitChance: 80,
-  shotDelay: 2000,
+  shotDelay: 750,
   effDmg: 200
 };
 
@@ -42,8 +42,8 @@ var airCombat = {
 // timerOne = Math.floor(Math.random() * 2000);
 // timerTwo = Math.floor(Math.random() * 2000);
 
-timerOne = 1500;
-timerTwo = 1000;
+timerOne = 500;
+timerTwo = 1500;
 
 // attempt 2 - label statements
 // xcomShoot:
@@ -58,29 +58,34 @@ timerTwo = 1000;
 //         timerTwo += ufo.shotDelay;
 //     }
 
-engagement: while (timerOne < timerTwo) {
-  console.log("xcom timer: " + timerOne + " ufo timer: " + timerTwo);
-  console.log(
-    "ufo health " +
-      (ufo.health -= airCombat.shoot(interceptor.hitChance, interceptor.effDmg))
-  );
-  timerOne += interceptor.shotDelay;
-  if (ufo.health <= 0) {
-    break engagement;
-  }
-  while (timerTwo < timerOne) {
-    console.log("xcom timer: " + timerOne + " ufo timer: " + timerTwo);
-    console.log(
-      "xcom health " +
-        (interceptor.health -= airCombat.shoot(ufo.hitChance, ufo.effDmg))
-    );
-    timerTwo += ufo.shotDelay;
-    if (interceptor.health <= 0) {
-      break engagement;
+engagement: while ((timerOne && timerTwo) < airCombat.interceptionTime) {
+  if (timerOne < timerTwo) {
+    while (timerOne < timerTwo) {
+      console.log("xcom timer: " + timerOne + " ufo timer: " + timerTwo);
+      console.log(
+        "ufo health " +
+          (ufo.health -= airCombat.shoot(
+            interceptor.hitChance,
+            interceptor.effDmg
+          ))
+      );
+      timerOne += interceptor.shotDelay;
+      if (ufo.health <= 0) {
+        break engagement;
+      }
     }
-  }
-  if ((timerOne && timerTwo) > airCombat.interceptionTime) {
-    break;
+  } else {
+    while (timerOne >= timerTwo) {
+      console.log("xcom timer: " + timerOne + " ufo timer: " + timerTwo);
+      console.log(
+        "xcom health " +
+          (interceptor.health -= airCombat.shoot(ufo.hitChance, ufo.effDmg))
+      );
+      timerTwo += ufo.shotDelay;
+      if (interceptor.health <= 0) {
+        break engagement;
+      }
+    }
   }
 }
 
