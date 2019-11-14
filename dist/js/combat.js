@@ -1,8 +1,8 @@
 // Global variables
 armoredFighters = false;
 afterburners = false;
-avionics = true;
-pen_wpns = false;
+avionics = false;
+penWeapons = false;
 coilguns = false;
 pulse = false;
 sparrowhawks = false;
@@ -22,6 +22,88 @@ const WEAPON_TABLE = {
   doublePlasma: { hitChance: 40, dmg: 800, penetration: 20, shotDelay: 1250 },
   ufoFusion: { hitChance: 45, dmg: 1300, penetration: 50, shotDelay: 1250 }
 };
+
+const UFO_TABLE = {
+  scout: {
+    health: 750,
+    armor: 0,
+    bonusPen: 3,
+    weapon: "singlePlasma",
+    speed: 42
+  },
+  fighter: {
+    health: 850,
+    armor: 12,
+    bonusPen: 7,
+    weapon: "singlePlasma",
+    speed: 40
+  },
+  raider: {
+    health: 1500,
+    armor: 5,
+    bonusPen: 7,
+    weapon: "singlePlasma",
+    speed: 32
+  },
+  destroyer: {
+    health: 1600,
+    armor: 18,
+    bonusPen: 15,
+    weapon: "singlePlasma",
+    speed: 30
+  },
+  harvester: {
+    health: 6000,
+    armor: 20,
+    bonusPen: 3,
+    weapon: "doublePlasma",
+    speed: 12
+  },
+  abductor: {
+    health: 4000,
+    armor: 30,
+    bonusPen: 2,
+    weapon: "doublePlasma",
+    speed: 20
+  },
+  transport: {
+    health: 5000,
+    armor: 32,
+    bonusPen: 0,
+    weapon: "doublePlasma",
+    speed: 12
+  },
+  terror: {
+    health: 6000,
+    armor: 25,
+    bonusPen: 0,
+    weapon: "doublePlasma",
+    speed: 14
+  },
+  battleship: {
+    health: 9000,
+    armor: 36,
+    bonusPen: 25,
+    weapon: "ufoFusion",
+    speed: 20
+  },
+  assault: {
+    health: 8000,
+    armor: 28,
+    bonusPen: 18,
+    weapon: "doublePlasma",
+    speed: 22
+  },
+  overseer: {
+    health: 2500,
+    armor: 40,
+    bonusPen: 25,
+    weapon: "doublePlasma",
+    speed: 60
+  }
+};
+
+const RESEARCH_BONUSES = { health: 75, dmg: 8, aim: 2 };
 // Constructors
 function Interceptor(
   type,
@@ -44,7 +126,6 @@ function Interceptor(
   // health calc
   this.health = function() {
     health = this.type == "firestorm" ? 4000 : 2500;
-
     if (armoredFighters) {
       health += 1000;
     }
@@ -69,6 +150,13 @@ function Interceptor(
   };
   // weapon shot delay
   this.shotDelay = WEAPON_TABLE[this.weapon].shotDelay;
+  // armor penetration
+  this.penetration = function() {
+    intBase = this.type == 'firestorm' ? 5 : 0;
+    wpnBase = WEAPON_TABLE[this.weapon].penetration;
+    penWpns = penWeapons ? 5 : 0;
+    return intBase + wpnBase + penWpns;
+  }
   // weapon damage calc
   this.effDmg = function() {
     return (
@@ -76,50 +164,85 @@ function Interceptor(
       (1 + this.pilotKills * 0.01)
     ).toFixed(1);
   };
+  this.speed = this.type == "firestorm" ? 15 : 10;
 }
 
 function Ufo(type, research, startHealth, altitude, alwaysHit) {
   this.type = type;
-  this.research = research;
-  this.startingHealth = startHealth;
+  this.researchUpgrade = research / 30;
+  this.startingHealth = startHealth / 100;
   this.altitude = altitude;
   this.alwaysGetsHit = alwaysHit;
   // health calc
+  this.health = (UFO_TABLE[this.type].health + (this.researchUpgrade * RESEARCH_BONUSES.health)) * this.startingHealth;
   // armor
+  this.armor = UFO_TABLE[this.type].armor;
   // hitChance calc
+  this.hitChance = function() {
+    base = WEAPON_TABLE[UFO_TABLE[this.type].weapon].hitChance;
+    researchBonus = this.researchUpgrade * RESEARCH_BONUSES.aim;
+    hitChance = base + researchBonus;
+    if (countermeasures) {
+      hitChance -= 15;
+    }
+     interceptor1.stance == "defensive"
+    ? (hitChance -= 15)
+    : interceptor1.stance == "aggressive"
+    ? (hitChance += 15)
+    : hitChance;
+    return hitChance >= 95 ? 95 : hitChance;
+  }
   // weapon shot delay
+  this.shotDelay = WEAPON_TABLE[UFO_TABLE[this.type].weapon].shotDelay;
+  // penetration
+  this.penetration = UFO_TABLE[this.type].bonusPen + WEAPON_TABLE[UFO_TABLE[this.type].weapon].penetration;
   // weapon damage
+  // ufo speed
+  this.speed = UFO_TABLE[this.type].speed;
 }
 // Objects
 let interceptor1 = new Interceptor(
-  "interceptor",
+  "firestorm",
   0,
-  "phoenix",
+  "stingray",
   "balanced",
   0,
   0,
   false,
   false
 );
-console.log('interceptor 1: ' + interceptor1.health());
-console.log('interceptor 1: ' + interceptor1.armor);
-console.log('interceptor 1: ' + interceptor1.hitChance());
-console.log('interceptor 1: ' + interceptor1.shotDelay);
-console.log('interceptor 1: ' + interceptor1.effDmg());
+console.log("interceptor 1 health: " + interceptor1.health());
+console.log("interceptor 1 armor: " + interceptor1.armor);
+console.log("interceptor 1 hitChance: " + interceptor1.hitChance());
+console.log("interceptor 1 shotDelay: " + interceptor1.shotDelay);
+console.log("interceptor 1 penetration: " + interceptor1.penetration());
+console.log("interceptor 1 effDmg: " + interceptor1.effDmg());
+console.log("interceptor 1 speed: " + interceptor1.speed);
 
-let interceptor = {
-  health: 1000,
-  hitChance: 80,
-  shotDelay: 2000,
-  effDmg: 200
-};
+let ufo = new Ufo("scout", 960, 100, "low", false);
+console.log("ufo health: " + ufo.health);
+console.log("ufo armor: " + ufo.armor);
+console.log('ufo hitChance: ' + ufo.hitChance())
+console.log("ufo health: " + ufo.health);
+console.log("ufo shotDelay: " + ufo.shotDelay);
+console.log("ufo penetration: " + ufo.penetration);
+console.log("ufo speed: " + ufo.speed);
+console.log("ufo researchUpgrade: " + ufo.researchUpgrade);
 
-let ufo = {
-  health: 1000,
-  hitChance: 80,
-  shotDelay: 750,
-  effDmg: 200
-};
+// initial air combat test craft objects
+// let interceptor = {
+//   health: 1000,
+//   hitChance: 80,
+//   shotDelay: 2000,
+//   effDmg: 200
+// };
+
+// let ufo = {
+//   health: 1000,
+//   hitChance: 80,
+//   shotDelay: 750,
+//   effDmg: 200
+// };
 
 var airCombat = {
   interceptionTime: 28000,
