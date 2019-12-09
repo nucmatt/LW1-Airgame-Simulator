@@ -1,10 +1,4 @@
-// Global variables
-let armoredFighters = false;
-let afterburners = false;
-let avionics = false;
-let penWeapons = false;
-let sparrowhawks = false;
-let countermeasures = false;
+
 
 Math.clamp = function(value, min, max) {
   return Math.min(Math.max(min, value), max);
@@ -223,16 +217,10 @@ function Ufo(type, research, startHealth, altitude, alwaysHit) {
   this.speed = UFO_TABLE[this.type].speed;
 }
 // Objects
-let interceptor1 = new Interceptor(
-  "interceptor",
-  0,
-  "stingray",
-  "aggressive",
-  0,
-  0,
-  false,
-  false
-);
+let interceptor1 = new Interceptor(...buildInterceptor()[0])
+
+console.log(interceptor1);
+console.log("INTERCEPTOR BASE STATS");
 console.log("xcom type: " + interceptor1.type);
 console.log("interceptor 1 health: " + interceptor1.health);
 console.log("interceptor 1 armor: " + interceptor1.armor);
@@ -248,6 +236,7 @@ console.log("kill abort %: " + interceptor1.killAbortPercent);
 
 let ufo = new Ufo("scout", 0, 100, "low", false);
 
+console.log("UFO BASE STATS");
 console.log("ufo type: " + ufo.type);
 console.log("ufo health: " + ufo.health);
 console.log("ufo armor: " + ufo.armor);
@@ -260,21 +249,6 @@ console.log("ufo penetration: " + ufo.penetration);
 console.log("ufo base damage: " + ufo.baseDmg);
 console.log("ufo speed: " + ufo.speed);
 console.log("ufo researchUpgrade: " + ufo.researchUpgrade);
-
-// initial air combat test craft objects
-// let interceptor = {
-//   health: 1000,
-//   hitChance: 80,
-//   shotDelay: 2000,
-//   effDmg: 200
-// };
-
-// let ufo = {
-//   health: 1000,
-//   hitChance: 80,
-//   shotDelay: 750,
-//   effDmg: 200
-// };
 
 var airCombat = {
   interceptionTime: afterburners
@@ -343,6 +317,8 @@ var airCombat = {
     return roll;
   }
 };
+
+console.log("AIR COMBAT STATS")
 console.log("interception time: " + airCombat.interceptionTime);
 console.log("xcom stance: " + interceptor1.stance);
 console.log("xcom hit chance " + airCombat.xcomHitChance);
