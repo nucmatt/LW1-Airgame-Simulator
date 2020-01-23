@@ -26,7 +26,7 @@ const UFO_TABLE = {
 		weapon: "singlePlasma",
 		secondary: null,
 		speed: 42,
-		destruction: 0.002,
+		destruction: 0.2,
 	},
 	fighter: {
 		health: 850,
@@ -35,7 +35,7 @@ const UFO_TABLE = {
 		weapon: "singlePlasma",
 		secondary: null,
 		speed: 40,
-		destruction: 0.002,
+		destruction: 0.2,
 	},
 	raider: {
 		health: 1500,
@@ -44,7 +44,7 @@ const UFO_TABLE = {
 		weapon: "singlePlasma",
 		secondary: null,
 		speed: 32,
-		destruction: 0.00167,
+		destruction: 0.167,
 	},
 	destroyer: {
 		health: 1600,
@@ -53,7 +53,7 @@ const UFO_TABLE = {
 		weapon: "singlePlasma",
 		secondary: null,
 		speed: 30,
-		destruction: 0.00167,
+		destruction: 0.167,
 	},
 	harvester: {
 		health: 6000,
@@ -62,7 +62,7 @@ const UFO_TABLE = {
 		weapon: "doublePlasma",
 		secondary: null,
 		speed: 12,
-		destruction: 0.00143,
+		destruction: 0.143,
 	},
 	abductor: {
 		health: 4000,
@@ -71,7 +71,7 @@ const UFO_TABLE = {
 		weapon: "doublePlasma",
 		secondary: null,
 		speed: 20,
-		destruction: 0.00143,
+		destruction: 0.143,
 	},
 	transport: {
 		health: 5000,
@@ -80,7 +80,7 @@ const UFO_TABLE = {
 		weapon: "doublePlasma",
 		secondary: null,
 		speed: 12,
-		destruction: 0.00125,
+		destruction: 0.125,
 	},
 	terror: {
 		health: 6000,
@@ -89,7 +89,7 @@ const UFO_TABLE = {
 		weapon: "doublePlasma",
 		secondary: null,
 		speed: 14,
-		destruction: 0.00125,
+		destruction: 0.125,
 	},
 	battleship: {
 		health: 9000,
@@ -98,7 +98,7 @@ const UFO_TABLE = {
 		weapon: "ufoFusion",
 		secondary: null,
 		speed: 20,
-		destruction: 0.00067,
+		destruction: 0.067,
 	},
 	assault: {
 		health: 8000,
@@ -107,7 +107,7 @@ const UFO_TABLE = {
 		weapon: "doublePlasma",
 		secondary: "singlePlasma",
 		speed: 22,
-		destruction: 0.00067,
+		destruction: 0.067,
 	},
 	overseer: {
 		health: 2500,
@@ -126,11 +126,15 @@ const RESEARCH_BONUSES = { health: 75, dmg: 8, aim: 2 },
 	AIM_MODULE_USES = 2,
 	DODGE_MODULE_USES = 2;
 
-const firstShotDelayMax = 2000;
+const FIRST_SHOT_DELAY_MAX = 2000;
+
+// Strategy constants
+const FRIENDLY_SKIES_MODIFIER = 15,
+	UFO_ANALYSIS_BONUS_DMG = 0.1;
 
 function firstShotDelay() {
-	return Math.floor(Math.random() * firstShotDelayMax);
-};
+	return Math.floor(Math.random() * FIRST_SHOT_DELAY_MAX);
+}
 
 // Constructors
 function Interceptor(
@@ -141,7 +145,8 @@ function Interceptor(
 	deathAbort,
 	killAbort,
 	aim,
-	dodge
+	dodge,
+	name
 ) {
 	this.type = type;
 	this.pilotKills = kills;
@@ -152,6 +157,7 @@ function Interceptor(
 	this.killAbortPercent = killAbort / 100;
 	this.aimModule = aim ? AIM_MODULE_USES : 0;
 	this.dodgeModule = dodge ? DODGE_MODULE_USES : 0;
+	this.outcome = name; 
 	// health calc
 	this.health = this.type == "firestorm" ? 4000 : 2500;
 	if (armoredFighters) {
@@ -165,6 +171,9 @@ function Interceptor(
 	if (avionics) {
 		this.aimBonus += 10;
 	}
+	if (friendlySkies) {
+		this.aimBonus += FRIENDLY_SKIES_MODIFIER;
+	}
 
 	this.penetrationBonus = 0;
 	if (this.type == "firestorm") {
@@ -175,6 +184,9 @@ function Interceptor(
 	}
 
 	this.bonusDmg = 1 + this.pilotKills * PILOT_BONUSES.dmg;
+	if (ufoAnalysis) {
+		this.bonusDmg += UFO_ANALYSIS_BONUS_DMG;
+	}
 
 	// primary weapon stats
 	this.hitChance = WEAPON_TABLE[this.weapon].hitChance + this.aimBonus;
@@ -184,7 +196,7 @@ function Interceptor(
 	this.penetration =
 		WEAPON_TABLE[this.weapon].penetration + this.penetrationBonus;
 
-	this.baseDmg = WEAPON_TABLE[this.weapon].dmg * this.bonusDmg;
+	this.baseDmg = Math.round(WEAPON_TABLE[this.weapon].dmg * this.bonusDmg);
 
 	this.firstShotTime = firstShotDelay();
 
@@ -206,12 +218,11 @@ function Interceptor(
 	this.speed = this.type == "firestorm" ? 15 : 10;
 }
 
-function Ufo(type, research, startHealth, altitude, alwaysHit) {
+function Ufo(type, research, startHealth) {
 	this.type = type;
 	this.researchUpgrade = Math.floor(research / 30);
 	this.startingHealth = startHealth / 100;
-	this.altitude = altitude;
-	this.alwaysGetsHit = alwaysHit;
+
 	// Derived properties
 	// UFO weapons
 	this.weapon =
@@ -286,70 +297,72 @@ function Ufo(type, research, startHealth, altitude, alwaysHit) {
 	this.destruction = UFO_TABLE[this.type].destruction;
 }
 // Objects
-let interceptor1 = new Interceptor(...buildInterceptor()[0]);
+// let interceptor1 = new Interceptor(...buildInterceptor()[1]);
 
-console.log(interceptor1);
-console.log("INTERCEPTOR BASE STATS");
-console.log("xcom type: " + interceptor1.type);
-console.log("interceptor 1 health: " + interceptor1.health);
-console.log("interceptor 1 armor: " + interceptor1.armor);
-console.log("interceptor 1 weapon: " + interceptor1.weapon);
-console.log("interceptor 1 secondary: " + interceptor1.secondary);
-console.log("interceptor 1 aimBonus: " + interceptor1.aimBonus);
-console.log("interceptor 1 primary hitChance: " + interceptor1.hitChance);
-console.log(
-	"interceptor 1 secondary hit chance: " + interceptor1.secondaryHitChance
-);
-console.log("interceptor 1 shotDelay: " + interceptor1.shotDelay);
-console.log(
-	"interceptor 1 secondary shotDelay: " + interceptor1.secondaryShotDelay
-);
-console.log("interceptor 1 penetration: " + interceptor1.penetration);
-console.log(
-	"interceptor 1 secondary penetration: " + interceptor1.secondaryPenetration
-);
-console.log("interceptor 1 damage bonus: " + interceptor1.bonusDmg);
-console.log("interceptor 1 primary damage: " + interceptor1.baseDmg);
-console.log("interceptor 1 secondary damage: " + interceptor1.secondaryDmg);
-console.log("interceptor 1 speed: " + interceptor1.speed);
-console.log("death abort %: " + interceptor1.deathAbortPercent);
-console.log("kill abort %: " + interceptor1.killAbortPercent);
-console.log("aim module uses: " + interceptor1.aimModule);
-console.log("dodge module uses: " + interceptor1.dodgeModule);
+// console.log(interceptor1);
+// console.log("INTERCEPTOR BASE STATS");
+// console.log("xcom type: " + interceptor1.type);
+// console.log("interceptor 1 health: " + interceptor1.health);
+// console.log("interceptor 1 armor: " + interceptor1.armor);
+// console.log("interceptor 1 weapon: " + interceptor1.weapon);
+// console.log("interceptor 1 secondary: " + interceptor1.secondary);
+// console.log("interceptor 1 aimBonus: " + interceptor1.aimBonus);
+// console.log("interceptor 1 primary hitChance: " + interceptor1.hitChance);
+// console.log(
+// 	"interceptor 1 secondary hit chance: " + interceptor1.secondaryHitChance
+// );
+// console.log("interceptor 1 shotDelay: " + interceptor1.shotDelay);
+// console.log(
+// 	"interceptor 1 secondary shotDelay: " + interceptor1.secondaryShotDelay
+// );
+// console.log("interceptor 1 penetration: " + interceptor1.penetration);
+// console.log(
+// 	"interceptor 1 secondary penetration: " + interceptor1.secondaryPenetration
+// );
+// console.log("interceptor 1 damage bonus: " + interceptor1.bonusDmg);
+// console.log("interceptor 1 primary damage: " + interceptor1.baseDmg);
+// console.log("interceptor 1 secondary damage: " + interceptor1.secondaryDmg);
+// console.log("interceptor 1 speed: " + interceptor1.speed);
+// console.log("death abort %: " + interceptor1.deathAbortPercent);
+// console.log("kill abort %: " + interceptor1.killAbortPercent);
+// console.log("aim module uses: " + interceptor1.aimModule);
+// console.log("dodge module uses: " + interceptor1.dodgeModule);
 
-let ufo = new Ufo("fighter", 330, 100, "low", false);
+// let ufo = new Ufo(...buildUfo());
 
-console.log("UFO BASE STATS");
-console.log("ufo type: " + ufo.type);
-console.log("ufo health: " + ufo.health);
-console.log("ufo armor: " + ufo.armor);
-console.log("ufo weapon: " + ufo.weapon);
-console.log("ufo secondary: " + ufo.secondary);
-console.log("ufo aim bonus: " + ufo.aimBonus);
-console.log("ufo hitChance: " + ufo.hitChance);
-console.log("ufo secondary hitChance: " + ufo.secondaryHitChance);
-console.log("ufo shotDelay: " + ufo.shotDelay);
-console.log("ufo secondaryShotDelay: " + ufo.secondaryShotDelay);
-console.log("ufo bonus penetration: " + ufo.penetrationBonus);
-console.log("ufo penetration: " + ufo.penetration);
-console.log("ufo secondary penetration: " + ufo.secondaryPenetration);
-console.log("ufo bonus damage: " + ufo.bonusDmg);
-console.log("ufo primary damage: " + ufo.baseDmg);
-console.log("ufo secondary damage: " + ufo.secondaryDmg);
-console.log("ufo speed: " + ufo.speed);
-console.log("ufo researchUpgrade: " + ufo.researchUpgrade);
+// console.log("UFO BASE STATS");
+// console.log("ufo type: " + ufo.type);
+// console.log("ufo health: " + ufo.health);
+// console.log("ufo armor: " + ufo.armor);
+// console.log("ufo weapon: " + ufo.weapon);
+// console.log("ufo secondary: " + ufo.secondary);
+// console.log("ufo aim bonus: " + ufo.aimBonus);
+// console.log("ufo hitChance: " + ufo.hitChance);
+// console.log("ufo secondary hitChance: " + ufo.secondaryHitChance);
+// console.log("ufo shotDelay: " + ufo.shotDelay);
+// console.log("ufo secondaryShotDelay: " + ufo.secondaryShotDelay);
+// console.log("ufo bonus penetration: " + ufo.penetrationBonus);
+// console.log("ufo penetration: " + ufo.penetration);
+// console.log("ufo secondary penetration: " + ufo.secondaryPenetration);
+// console.log("ufo bonus damage: " + ufo.bonusDmg);
+// console.log("ufo primary damage: " + ufo.baseDmg);
+// console.log("ufo secondary damage: " + ufo.secondaryDmg);
+// console.log("ufo speed: " + ufo.speed);
+// console.log("ufo researchUpgrade: " + ufo.researchUpgrade);
 
 function AirCombat(interceptor, ufo) {
 	this.xcomHealth = interceptor.health;
 	this.ufoHealth = ufo.health;
+	this.outcome = new Results();
 	this.interceptionTime = afterburners
 		? 5000 + Math.floor(30000 * (interceptor.speed / ufo.speed))
 		: Math.floor(30000 * (interceptor.speed / ufo.speed));
 
 	this.shotTimes = [];
-	// Interceptor derived stats 
-	this.xcomHitChance =
-		interceptor.hitChance + STANCE_BONUSES[interceptor.stance];
+	// Interceptor derived stats
+	this.xcomHitChance = alwaysHit
+		? 100
+		: interceptor.hitChance + STANCE_BONUSES[interceptor.stance];
 	this.xcomCritChance = Math.clamp(
 		(interceptor.penetration - ufo.armor) / 2,
 		5,
@@ -361,18 +374,26 @@ function AirCombat(interceptor, ufo) {
 		let shot;
 		let shots = [];
 		while (timer < engagementTime) {
-			shot = [name, timer]
+			shot = [name, timer];
 			shots.push(shot);
 			timer += delay;
 		}
 		return shots;
-	}
+	};
 
-	this.shotTimes.push(this.createShotTimes(interceptor.firstShotTime, interceptor.shotDelay, 'timerOne', this.interceptionTime))
+	this.shotTimes.push(
+		this.createShotTimes(
+			interceptor.firstShotTime,
+			interceptor.shotDelay,
+			"timerOne",
+			this.interceptionTime
+		)
+	);
 
 	if (interceptor.secondary) {
-		this.xcomSecondaryHitChance =
-			interceptor.hitChance + STANCE_BONUSES[interceptor.stance];
+		this.xcomSecondaryHitChance = alwaysHit
+			? 100
+			: interceptor.hitChance + STANCE_BONUSES[interceptor.stance];
 
 		this.xcomSecondaryCritChance = Math.clamp(
 			(interceptor.secondaryPenetration - ufo.armor) / 2,
@@ -380,7 +401,14 @@ function AirCombat(interceptor, ufo) {
 			25
 		);
 
-		this.shotTimes.push(this.createShotTimes(interceptor.secondaryFirstShotTime, interceptor.secondaryShotDelay, 'timerThree', this.interceptionTime));
+		this.shotTimes.push(
+			this.createShotTimes(
+				interceptor.secondaryFirstShotTime,
+				interceptor.secondaryShotDelay,
+				"timerThree",
+				this.interceptionTime
+			)
+		);
 	}
 	this.deathAbortHealth = interceptor.health * interceptor.deathAbortPercent;
 	this.xcomAimModule = interceptor.aimModule;
@@ -393,7 +421,14 @@ function AirCombat(interceptor, ufo) {
 		25
 	);
 
-	this.shotTimes.push(this.createShotTimes(ufo.firstShotTime, ufo.shotDelay, 'timerTwo', this.interceptionTime));
+	this.shotTimes.push(
+		this.createShotTimes(
+			ufo.firstShotTime,
+			ufo.shotDelay,
+			"timerTwo",
+			this.interceptionTime
+		)
+	);
 
 	if (ufo.secondary) {
 		this.ufoSecondaryHitChance =
@@ -405,7 +440,14 @@ function AirCombat(interceptor, ufo) {
 			25
 		);
 
-		this.shotTimes.push(this.createShotTimes(ufo.secondaryFirstShotTime, ufo.secondaryShotDelay, 'timerFour', this.interceptionTime));
+		this.shotTimes.push(
+			this.createShotTimes(
+				ufo.secondaryFirstShotTime,
+				ufo.secondaryShotDelay,
+				"timerFour",
+				this.interceptionTime
+			)
+		);
 	}
 
 	this.killAbortHealth = ufo.health * interceptor.killAbortPercent;
@@ -471,11 +513,7 @@ function AirCombat(interceptor, ufo) {
 		console.log("XCOM shoots primary");
 		return this.xcomShoots(
 			this.xcomHitChance,
-			this.effDmg(
-				interceptor.baseDmg,
-				ufo.armor,
-				interceptor.penetration
-			),
+			this.effDmg(interceptor.baseDmg, ufo.armor, interceptor.penetration),
 			this.xcomCritChance,
 			this.xcomAimModule
 		);
@@ -508,11 +546,7 @@ function AirCombat(interceptor, ufo) {
 		console.log("UFO shoots primary");
 		return this.ufoShoots(
 			this.ufoHitChance,
-			this.effDmg(
-				ufo.baseDmg,
-				interceptor1.armor,
-				ufo.penetration
-			),
+			this.effDmg(ufo.baseDmg, interceptor.armor, ufo.penetration),
 			this.ufoCritChance,
 			this.xcomDodgeModule
 		);
@@ -539,7 +573,7 @@ function AirCombat(interceptor, ufo) {
 			this.xcomDodgeModule
 		);
 		// console.log("xcom health " + interceptor.health);
-		 
+
 		// if (
 		// 	interceptor.health <= this.deathAbortHealth &&
 		// 	interceptor.health > 0
@@ -548,86 +582,138 @@ function AirCombat(interceptor, ufo) {
 		// } else if (interceptor.health < 0) {
 		// 	return updateDeath();
 		// }
+	};
+}
+
+// let interception1 = new AirCombat(interceptor1, ufo);
+// console.log();
+// console.log("AIR COMBAT STATS");
+// console.log("interception time: " + interception1.interceptionTime);
+// console.log("xcom stance: " + interceptor1.stance);
+// console.log("xcom hit chance " + interception1.xcomHitChance);
+// console.log("xcom crit chance: " + interception1.xcomCritChance);
+// console.log("xcom aim module uses: " + interception1.xcomAimModule);
+// console.log("xcom dodge module uses: " + interception1.xcomDodgeModule);
+// console.log(
+// 	"xcom primary eff dmg: " +
+// 		interception1.effDmg(
+// 			interceptor1.baseDmg,
+// 			ufo.armor,
+// 			interceptor1.penetration
+// 		)
+// );
+// console.log(
+// 	"xcom secondary eff dmg: " +
+// 		interception1.effDmg(
+// 			interceptor1.secondaryDmg,
+// 			ufo.armor,
+// 			interceptor1.secondaryPenetration
+// 		)
+// );
+// console.log("ufo hit chance: " + interception1.ufoHitChance);
+// console.log("ufo crit chance: " + interception1.ufoCritChance);
+// console.log(
+// 	"ufo primary eff dmg: " +
+// 		interception1.effDmg(ufo.baseDmg, interceptor1.armor, ufo.penetration)
+// );
+// console.log(
+// 	"ufo secondary eff dmg: " +
+// 		interception1.effDmg(
+// 			ufo.secondaryDmg,
+// 			interceptor1.armor,
+// 			ufo.secondaryPenetration
+// 		)
+// );
+
+// Air combat results
+function Results() {
+	this.kill = { number: 0, destroyed: 0, xcomHealth: 0 };
+	this.killAbort = { number: 0, ufoHealth: 0, xcomHealth: 0 };
+	this.stalemate = { number: 0, ufoHealth: 0, xcomHealth: 0 };
+	this.deathAbort = { number: 0, ufoHealth: 0, xcomTimer: 0 };
+	this.death = { number: 0, ufoHealth: 0, ufoTimer: 0 };
+}
+
+function calculateResults(outcome, interceptorHealth, ufoHealth) {
+	let kill = outcome.kill,
+	 killAbort = outcome.killAbort,
+	 stalemate = outcome.stalemate,
+	 deathAbort = outcome.deathAbort,
+	 death = outcome.death;
+
+	 const results = [];
+	//  Kill calcs
+	 results.push(Math.round((kill.number / simulations) * 100));
+	 results.push(Math.round(kill.destroyed / kill.number));
+	 results.push(Math.round(((kill.xcomHealth / kill.number) / interceptorHealth) * 100));
+	//  Kill Abort calcs
+	 results.push(Math.round((killAbort.number / simulations) * 100));
+	 results.push(Math.round(((killAbort.ufoHealth / killAbort.number) / ufoHealth) * 100));
+	 results.push(Math.round(((killAbort.xcomHealth / killAbort.number) / interceptorHealth) * 100));
+	//  Stalemate calcs
+	 results.push(Math.round((stalemate.number / simulations) * 100));
+	 results.push(Math.round(((stalemate.ufoHealth / stalemate.number) / ufoHealth) * 100));
+	 results.push(Math.round(((stalemate.xcomHealth / stalemate.number) / interceptorHealth) * 100));
+	//  Death Abort calcs
+	 results.push(Math.round((deathAbort.number / simulations) * 100));
+	 results.push(Math.round(((deathAbort.ufoHealth / deathAbort.number) / ufoHealth) * 100));
+	 results.push((deathAbort.xcomTimer / deathAbort.number) / 1000);
+	//  Death calcs
+	 results.push(Math.round((death.number / simulations) * 100));
+	 results.push(Math.round(((death.ufoHealth / death.number) / ufoHealth) * 100));
+	 results.push((death.ufoTimer / death.number) / 1000);
+	
+	 return results;
+}
+
+
+
+function displayResults(column, numbers) {
+	console.log(numbers);
+	for (let i = 0; i < column.length; i++) {
+		if (isNaN(numbers[i])) {
+			column[i].innerHTML = '-';
+		// These two indicies are for Engagement times so no % appended
+		} else if (i === 11 || i === 14) {
+			column[i].innerHTML = numbers[i].toFixed(2);
+		} else {
+			column[i].innerHTML = numbers[i] + '%';
+		}
 	}
 }
 
-let interception1 = new AirCombat(interceptor1, ufo);
-console.log();
-console.log("AIR COMBAT STATS");
-console.log("interception time: " + interception1.interceptionTime);
-console.log("xcom stance: " + interceptor1.stance);
-console.log("xcom hit chance " + interception1.xcomHitChance);
-console.log("xcom crit chance: " + interception1.xcomCritChance);
-console.log("xcom aim module uses: " + interception1.xcomAimModule);
-console.log("xcom dodge module uses: " + interception1.xcomDodgeModule);
-console.log(
-	"xcom primary eff dmg: " +
-		interception1.effDmg(
-			interceptor1.baseDmg,
-			ufo.armor,
-			interceptor1.penetration
-		)
-);
-console.log(
-	"xcom secondary eff dmg: " +
-		interception1.effDmg(
-			interceptor1.secondaryDmg,
-			ufo.armor,
-			interceptor1.secondaryPenetration
-		)
-);
-console.log("ufo hit chance: " + interception1.ufoHitChance);
-console.log("ufo crit chance: " + interception1.ufoCritChance);
-console.log(
-	"ufo primary eff dmg: " +
-		interception1.effDmg(ufo.baseDmg, interceptor1.armor, ufo.penetration)
-);
-console.log(
-	"ufo secondary eff dmg: " +
-		interception1.effDmg(
-			ufo.secondaryDmg,
-			interceptor1.armor,
-			ufo.secondaryPenetration
-		)
-);
-
-// Air combat results
-let kill = { number: 0, destroyed: 0, xcomHealth: 0 },
-	killAbort = { number: 0, ufoHealth: 0, xcomHealth: 0 },
-	stalemate = { number: 0, ufoHealth: 0, xcomHealth: 0 },
-	deathAbort = { number: 0, ufoHealth: 0, xcomTimer: 0 },
-	death = { number: 0, ufoHealth: 0, ufoTimer: 0 };
+// let blueRangerOutcome = new Results(),
+// 	greenHornetOutcome = new Results(),
+// 	redDevilOutcome = new Results();
 
 // Functions to update air combat results objects
-function updateKill(xcomHealth, ufoHealth) {
-	kill.number += 1;
-	kill.xcomHealth += xcomHealth;
-	kill.destroyed += Math.clamp(
-		interception1.ufoDestroyed(ufoHealth),
-		0,
-		100
-	).toFixed(3);
-}
-function updateKillAbort(xcomHealth, ufoHealth) {
-	killAbort.number += 1;
-	killAbort.xcomHealth += xcomHealth;
-	killAbort.ufoHealth += ufoHealth;
-}
-function updateStalemate(xcomHealth, ufoHealth) {
-	stalemate.number += 1;
-	stalemate.xcomHealth += xcomHealth;
-	stalemate.ufoHealth += ufoHealth;
-}
-function updateDeathAbort(ufoHealth, time) {
-	deathAbort.number += 1;
-	deathAbort.ufoHealth += ufoHealth;
-	deathAbort.xcomTimer += time;
-}
-function updateDeath(ufoHealth, time) {
-	death.number += 1;
-	death.ufoHealth += ufoHealth;
-	death.ufoTimer += time;
-}
+function updateKill(outcome, xcomHealth, destroyedCalc) {
+	outcome.kill.number += 1;
+	outcome.kill.xcomHealth += xcomHealth;
+	outcome.kill.destroyed += +Math.clamp(destroyedCalc, 0, 100).toFixed(1);
+};
+function updateKillAbort(outcome, xcomHealth, ufoHealth) {
+	outcome.killAbort.number += 1;
+	outcome.killAbort.xcomHealth += xcomHealth;
+	outcome.killAbort.ufoHealth += ufoHealth;
+};
+function updateStalemate(outcome, xcomHealth, ufoHealth) {
+	outcome.stalemate.number += 1;
+	outcome.stalemate.xcomHealth += xcomHealth;
+	outcome.stalemate.ufoHealth += ufoHealth;
+};
+function updateDeathAbort(outcome, ufoHealth, time) {
+	outcome.deathAbort.number += 1;
+	outcome.deathAbort.ufoHealth += ufoHealth;
+	outcome.deathAbort.xcomTimer += time;
+};
+function updateDeath(outcome, ufoHealth, time) {
+	outcome.death.number += 1;
+	outcome.death.ufoHealth += ufoHealth;
+	outcome.death.ufoTimer += time;
+};
+
+
 
 // Air combat simulation
 
@@ -635,8 +721,8 @@ function updateDeath(ufoHealth, time) {
 // for (timer in timers) {
 // 	sortable.push([timer, timers[timer]]);
 // }
-console.log(interception1.shotTimes.flat().sort((a, b) => a[1] - b[1]));
-console.log("AIR COMBAT ROLLS");
+// console.log(interception1.shotTimes.flat().sort((a, b) => a[1] - b[1]));
+// console.log("AIR COMBAT ROLLS");
 // console.log("timer One : " + initialTimers[0][1]);
 // console.log("timer Two : " + initialTimers[1][1]);
 // console.log("timer Three : " + initialTimers[2][1]);
@@ -647,18 +733,19 @@ console.log("AIR COMBAT ROLLS");
 
 function engagement(interception) {
 	let timers = interception.shotTimes.flat().sort((a, b) => a[1] - b[1]);
+	let outcome = interception.outcome;
 	for (let i = 0; i < timers.length; i++) {
-		if (timers[i][0] == 'timerOne') {
-		interception.ufoHealth -= interception.xcomPrimary();
-		console.log("xcom health: " + interception.xcomHealth);
-		console.log("ufo health: " + interception.ufoHealth);
-		console.log("timerOne: " + timers[i][1]);
-		} else if (timers[i][0] == 'timerTwo') {
+		if (timers[i][0] == "timerOne") {
+			interception.ufoHealth -= interception.xcomPrimary();
+			console.log("xcom health: " + interception.xcomHealth);
+			console.log("ufo health: " + interception.ufoHealth);
+			console.log("timerOne: " + timers[i][1]);
+		} else if (timers[i][0] == "timerTwo") {
 			interception.xcomHealth -= interception.ufoPrimary();
 			console.log("xcom health: " + interception.xcomHealth);
 			console.log("ufo health: " + interception.ufoHealth);
 			console.log("timerTwo: " + timers[i][1]);
-		} else if (timers[i][0] == 'timerThree') {
+		} else if (timers[i][0] == "timerThree") {
 			interception.ufoHealth -= interception.xcomSecondary();
 			console.log("xcom health: " + interception.xcomHealth);
 			console.log("ufo health: " + interception.ufoHealth);
@@ -668,22 +755,31 @@ function engagement(interception) {
 			console.log("xcom health: " + interception.xcomHealth);
 			console.log("ufo health: " + interception.ufoHealth);
 			console.log("timerFour: " + timers[i][1]);
-		};
+		}
 
-		if (interception.xcomHealth < interception.deathAbortHealth && interception.xcomHealth > 0) {
-			return updateDeathAbort(interception.ufoHealth, timers[i][1]);
+		if (
+			interception.xcomHealth < interception.deathAbortHealth &&
+			interception.xcomHealth > 0
+		) {
+			return updateDeathAbort(outcome, interception.ufoHealth, timers[i][1]);
 		} else if (interception.xcomHealth < 0) {
-			return updateDeath(interception.ufoHealth, timers[i][1]);
-		} else if (interception.ufoHealth < interception.killAbortHealth && interception.ufoHealth > 0) {
-			return updateKillAbort(interception.xcomHealth, interception.ufoHealth);
+			return updateDeath(outcome, interception.ufoHealth, timers[i][1]);
+		} else if (
+			interception.ufoHealth < interception.killAbortHealth &&
+			interception.ufoHealth > 0
+		) {
+			return updateKillAbort(outcome, interception.xcomHealth, interception.ufoHealth);
 		} else if (interception.ufoHealth < 0) {
-			return updateKill(interception.xcomHealth, interception.ufoHealth);
+			return updateKill(
+				outcome, interception.xcomHealth,
+				interception.ufoDestroyed(interception.ufoHealth)
+			);
 		}
 	}
-	return updateStalemate(interception.xcomHealth, interception.ufoHealth);
+	return updateStalemate(outcome, interception.xcomHealth, interception.ufoHealth);
 }
 
-engagement(interception1);
+// engagement(interception1);
 
 // function sortTimers(timers) {
 // 	let sortedTimers = timers.sort((a, b) => a[1] - b[1]);
@@ -739,7 +835,7 @@ engagement(interception1);
 // 			return updateKill();
 // 		} else {
 // 			(sortedTimers[0][1] += interceptor1.shotDelay);
-			
+
 // 		}
 // 	} else if (sorted[0][0] == "timerTwo") {
 // 		console.log("ufo primary timer: " + timerTwo);
@@ -818,9 +914,6 @@ engagement(interception1);
 // 	}
 // }
 
-
-
-
 // working engagment with two timers
 // engagement: while ((timerOne && timerTwo) < interception1.interceptionTime) {
 // 	if (timerOne < timerTwo) {
@@ -876,37 +969,37 @@ engagement(interception1);
 // 	}
 // }
 
-console.log("INTERCEPTION RESULTS");
-console.log(
-	"kill % : " + kill.number + " " + kill.destroyed + " " + kill.xcomHealth
-);
-console.log(
-	"killAbort % : " +
-		killAbort.number +
-		" " +
-		killAbort.ufoHealth +
-		" " +
-		killAbort.xcomHealth
-);
-console.log(
-	"stalemate % : " +
-		stalemate.number +
-		" " +
-		stalemate.ufoHealth +
-		" " +
-		stalemate.xcomHealth
-);
-console.log(
-	"deathAbort % : " +
-		deathAbort.number +
-		" " +
-		deathAbort.ufoHealth +
-		" " +
-		deathAbort.xcomTimer
-);
-console.log(
-	"death % : " + death.number + " " + death.ufoHealth + " " + death.ufoTimer
-);
+// console.log("INTERCEPTION RESULTS");
+// console.log(
+// 	"kill % : " + kill.number + " " + kill.destroyed + " " + kill.xcomHealth
+// );
+// console.log(
+// 	"killAbort % : " +
+// 		killAbort.number +
+// 		" " +
+// 		killAbort.ufoHealth +
+// 		" " +
+// 		killAbort.xcomHealth
+// );
+// console.log(
+// 	"stalemate % : " +
+// 		stalemate.number +
+// 		" " +
+// 		stalemate.ufoHealth +
+// 		" " +
+// 		stalemate.xcomHealth
+// );
+// console.log(
+// 	"deathAbort % : " +
+// 		deathAbort.number +
+// 		" " +
+// 		deathAbort.ufoHealth +
+// 		" " +
+// 		deathAbort.xcomTimer
+// );
+// console.log(
+// 	"death % : " + death.number + " " + death.ufoHealth + " " + death.ufoTimer
+// );
 
 // // attempt 1 - pure while loop
 // while (((timerOne && timerTwo) < airCombat.interceptionTime) && (ufo.health || interceptor.health) > 0)  {

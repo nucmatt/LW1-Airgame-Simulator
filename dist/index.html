@@ -11,7 +11,7 @@
   <body>
     <main>
       <div id="interceptors">
-        <div class="interceptor blue" id="interceptor1">
+        <div class="interceptor blue" id="blueRanger">
           <h1>Interceptor 1</h1>
           <span>Type:
             <select name="" id="" class="int_type">
@@ -21,7 +21,7 @@
           </span>
           <span>
             Pilot Kills:
-            <input type="number" class="kills" value="3" min="0" />
+            <input type="number" class="kills" value="0" min="0" />
           </span>
           <span>
             Weapon:
@@ -68,12 +68,12 @@
           <span> Aim Module <input type="checkbox" class="aimmod" /> </span>
           <span> Dodge Module <input type="checkbox" class="dodgemod" /> </span>
         </div>
-        <div class="interceptor green" id="interceptor2">
+        <div class="interceptor green" id="greenHornet">
           <h1>Interceptor 2</h1>
           <span>Type:
             <select name="" id="" class="int_type">
-              <option value="Interceptor" selected>Interceptor</option>
-              <option value="Firestorm">Firestorm</option>
+              <option value="interceptor" selected>Interceptor</option>
+              <option value="firestorm">Firestorm</option>
             </select>
           </span>
           <span>
@@ -83,21 +83,21 @@
           <span>
             Weapon:
             <select name="" id="" class="int_wpn">
-              <option value="Avalanche" selected>Avalanche</option>
-              <option value="Stingray">Stingray</option>
-              <option value="Phoenix">Phoenix Cannon</option>
-              <option value="Laser">Laser Cannon</option>
-              <option value="Plasma">Plasma Cannon</option>
-              <option value="EMP">EMP Cannon</option>
-              <option value="Fusion">Fusion Lance</option>
+              <option value="avalanche" selected>Avalanche</option>
+              <option value="stingray">Stingray</option>
+              <option value="phoenix">Phoenix Cannon</option>
+              <option value="laser">Laser Cannon</option>
+              <option value="plasma">Plasma Cannon</option>
+              <option value="emp">EMP Cannon</option>
+              <option value="fusion">Fusion Lance</option>
             </select>
           </span>
           <span>
             Stance:
             <select name="" id="" class="stance">
-              <option value="Defensive">Defensive</option>
-              <option value="Balanced" selected>Balanced</option>
-              <option value="Aggressive">Aggressive</option>
+              <option value="defensive">Defensive</option>
+              <option value="balanced" selected>Balanced</option>
+              <option value="aggressive">Aggressive</option>
             </select>
           </span>
           <span>
@@ -123,12 +123,12 @@
           <span> Aim Module <input type="checkbox" class="aimmod" /> </span>
           <span> Dodge Module <input type="checkbox" class="dodgemod" /> </span>
         </div>
-        <div class="interceptor red" id="interceptor3">
+        <div class="interceptor red" id="redDevil">
           <h1>Interceptor 3</h1>
           <span>Type:
             <select name="" id="" class="int_type">
-              <option value="Interceptor" selected>Interceptor</option>
-              <option value="Firestorm">Firestorm</option>
+              <option value="interceptor" selected>Interceptor</option>
+              <option value="firestorm">Firestorm</option>
             </select>
           </span>
           <span>
@@ -138,21 +138,21 @@
           <span>
             Weapon:
             <select name="" id="" class="int_wpn">
-              <option value="Avalanche" selected>Avalanche</option>
-              <option value="Stingray">Stingray</option>
-              <option value="Phoenix">Phoenix Cannon</option>
-              <option value="Laser">Laser Cannon</option>
-              <option value="Plasma">Plasma Cannon</option>
-              <option value="EMP">EMP Cannon</option>
-              <option value="Fusion">Fusion Lance</option>
+              <option value="avalanche" selected>Avalanche</option>
+              <option value="stingray">Stingray</option>
+              <option value="phoenix">Phoenix Cannon</option>
+              <option value="laser">Laser Cannon</option>
+              <option value="plasma">Plasma Cannon</option>
+              <option value="emp">EMP Cannon</option>
+              <option value="fusion">Fusion Lance</option>
             </select>
           </span>
           <span>
             Stance:
             <select name="" id="" class="stance">
-              <option value="Defensive">Defensive</option>
-              <option value="Balanced" selected>Balanced</option>
-              <option value="Aggressive">Aggressive</option>
+              <option value="defensive">Defensive</option>
+              <option value="balanced" selected>Balanced</option>
+              <option value="aggressive">Aggressive</option>
             </select>
           </span>
           <span>
@@ -190,7 +190,7 @@
           <h1>XCOM Strategy</h1>
           <span>
             Sequential Interceptions:
-            <input type="checkbox" id="seq_int" />
+            <input type="checkbox" id="seq_int" checked/>
           </span>
           <span>
             UFO Analysis:
@@ -198,7 +198,7 @@
           </span>
           <span>
             Friendly Skies:
-            <input type="checkbox" id="frnd_skies" />
+            <input type="checkbox" id="friendly_skies" />
           </span>
           <span>
             Campaign Date:
@@ -228,7 +228,7 @@
           <div>
             <span>
               Wingtip Sparrowhawks:
-              <input type="checkbox" id="sparrowhawks" checked />
+              <input type="checkbox" id="sparrowhawks" />
             </span>
             <span>
               UFO Countermeasures:
@@ -238,12 +238,12 @@
         </div>
       </div>
       <div id="ufo">
-        <h1 id="ufo">UFO</h1>
+        <h1>UFO</h1>
         <span>
           Type:
           <select name="" id="ufo_type">
             <option value="scout">Scout</option>
-            <option value="fighter" >Fighter</option>
+            <option value="fighter">Fighter</option>
             <option value="raider">Raider</option>
             <option value="destroyer">Destroyer</option>
             <option value="harvester">Harvester</option>
@@ -257,19 +257,15 @@
         </span>
         <span>
           Alien Research:
-          <input type="number" value="0" min="0" max="960" />
+          <input type="number" id="alien_research" value="0" min="0" max="960" />
         </span>
         <span>
           Starting Health(%):
-          <input type="number" value="100" min="1" max="100" />
+          <input type="number" id="start_health" value="100" min="1" max="100" />
         </span>
         <span>
-          Altitude:
-          <select name="" id="altitude">
-            <option value="low">Low</option>
-            <option value="high">High</option>
-            <option value="noe">NOE</option>
-          </select>
+          Always Gets Hit: 
+          <input type="checkbox" id="always_hit" >
         </span>
       </div>
       <div id="results">
@@ -277,101 +273,104 @@
         <table>
           <tr>
             <th><span class="blank">Blank</span></th>
-            <th>Blue Ranger</th>
-            <th>Green Hornet</th>
-            <th>Red Devil</th>
+            <th class="blue">Blue Ranger</th>
+            <th class="green">Green Hornet</th>
+            <th class="red">Red Devil</th>
           </tr>
-          <tr>
+          <tr id="kill">
             <td>Kill %</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="kill_destroyed">
             <td>% Kills Destroyed</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="kill_xcom_hp">
             <td>Ave. XCOM HP</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="kill_abort">
             <td>Kill Abort %</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="kill_abort_ufo_hp">
             <td>Ave. UFO HP</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="kill_abort_xcom_hp">
             <td>Ave. XCOM HP</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="stalemate">
             <td>Stalemate %</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="stalemate_ufo_hp">
             <td>Ave. UFO HP</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="stalemate_xcom_hp">
             <td>Ave. XCOM HP</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="death_abort">
             <td>Death Abort %</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="death_abort_ufo_hp">
             <td>Ave. UFO HP</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="death_abort_time">
             <td>Ave. Engage Time</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="death">
             <td>Death %</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="death_ufo_hp">
             <td>Ave. UFO HP</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
-          <tr>
+          <tr id="death_time">
             <td>Ave. Engage Time</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="blue"></td>
+            <td class="green"></td>
+            <td class="red"></td>
           </tr>
         </table>
+      </div>
+      <div>
+        <input type="button" id="start_btn" value="Begin Simulation">
       </div>
     </main>
   </body>
