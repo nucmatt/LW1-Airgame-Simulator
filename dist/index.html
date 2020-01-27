@@ -9,9 +9,16 @@
     <title>LW1 Airgame Simulator</title>
   </head>
   <body>
+    <header>
+      <div class="menu-btn">
+        <div class="btn-line"></div>
+        <div class="btn-line"></div>
+        <div class="btn-line"></div>
+      </div>
+    </header>
     <main>
-      <div id="interceptors">
-        <div class="interceptor blue" id="blueRanger">
+      <div class="grid-container">       
+        <section class="interceptor blue" id="blueRanger">
           <h1>Interceptor 1</h1>
           <span>Type:
             <select name="" id="" class="int_type">
@@ -48,27 +55,27 @@
           <span>
             Death Abort%:
             <input
-              type="number"
-              class="deathabort"
-              value="25"
-              min="0"
-              max="100"
+            type="number"
+            class="deathabort"
+            value="25"
+            min="0"
+            max="100"
             />
           </span>
           <span>
             Kill Abort%:
             <input
-              type="number"
-              class="killabort"
-              value="0"
-              min="0"
-              max="100"
+            type="number"
+            class="killabort"
+            value="0"
+            min="0"
+            max="100"
             />
           </span>
           <span> Aim Module <input type="checkbox" class="aimmod" /> </span>
           <span> Dodge Module <input type="checkbox" class="dodgemod" /> </span>
-        </div>
-        <div class="interceptor green" id="greenHornet">
+        </section>
+        <section class="interceptor green" id="greenHornet">
           <h1>Interceptor 2</h1>
           <span>Type:
             <select name="" id="" class="int_type">
@@ -103,27 +110,27 @@
           <span>
             Death Abort%:
             <input
-              type="number"
-              class="deathabort"
-              value="25"
-              min="0"
-              max="100"
+            type="number"
+            class="deathabort"
+            value="25"
+            min="0"
+            max="100"
             />
           </span>
           <span>
             Kill Abort%:
             <input
-              type="number"
-              class="killabort"
-              value="0"
-              min="0"
-              max="100"
+            type="number"
+            class="killabort"
+            value="0"
+            min="0"
+            max="100"
             />
           </span>
           <span> Aim Module <input type="checkbox" class="aimmod" /> </span>
           <span> Dodge Module <input type="checkbox" class="dodgemod" /> </span>
-        </div>
-        <div class="interceptor red" id="redDevil">
+        </section>
+        <section class="interceptor red" id="redDevil">
           <h1>Interceptor 3</h1>
           <span>Type:
             <select name="" id="" class="int_type">
@@ -158,21 +165,21 @@
           <span>
             Death Abort%:
             <input
-              type="number"
-              class="deathabort"
-              value="25"
-              min="0"
-              max="100"
+            type="number"
+            class="deathabort"
+            value="25"
+            min="0"
+            max="100"
             />
           </span>
           <span>
             Kill Abort%:
             <input
-              type="number"
-              class="killabort"
-              value="0"
-              min="0"
-              max="100"
+            type="number"
+            class="killabort"
+            value="0"
+            min="0"
+            max="100"
             />
           </span>
           <span>
@@ -183,10 +190,8 @@
             Dodge Module
             <input type="checkbox" class="dodgemod" />
           </span>
-        </div>
-      </div>
-      <div id="strategy_layer">
-        <div>
+        </section>
+        <section id="strategy">
           <h1>XCOM Strategy</h1>
           <span>
             Sequential Interceptions:
@@ -204,8 +209,8 @@
             Campaign Date:
             <input type="date" id="game_date" />
           </span>
-        </div>
-        <div>
+        </section>
+        <section id="foundry">
           <h1>Foundry Projects Completed</h1>
           <div>
             <span>
@@ -235,144 +240,150 @@
               <input type="checkbox" id="countermeasures" />
             </span>
           </div>
-        </div>
-      </div>
-      <div id="ufo">
-        <h1>UFO</h1>
-        <span>
-          Type:
-          <select name="" id="ufo_type">
-            <option value="scout">Scout</option>
-            <option value="fighter">Fighter</option>
-            <option value="raider">Raider</option>
-            <option value="destroyer">Destroyer</option>
-            <option value="harvester">Harvester</option>
-            <option value="abductor">Abductor</option>
-            <option value="transport">Transport</option>
-            <option value="terror">Terror</option>
-            <option value="battleship">Battleship</option>
-            <option value="assault_carrier">Assault Carrier</option>
-            <option value="overseer">Overseer</option>
-          </select>
-        </span>
-        <span>
-          Alien Research:
-          <input type="number" id="alien_research" value="0" min="0" max="960" />
-        </span>
-        <span>
-          Starting Health(%):
-          <input type="number" id="start_health" value="100" min="1" max="100" />
-        </span>
-        <span>
-          Always Gets Hit: 
-          <input type="checkbox" id="always_hit" >
-        </span>
-      </div>
-      <div id="results">
-        <h1>Simulation Results</h1>
-        <table>
-          <tr>
-            <th><span class="blank">Blank</span></th>
-            <th class="blue">Blue Ranger</th>
-            <th class="green">Green Hornet</th>
-            <th class="red">Red Devil</th>
-          </tr>
-          <tr id="kill">
-            <td>Kill %</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="kill_destroyed">
-            <td>% Kills Destroyed</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="kill_xcom_hp">
-            <td>Ave. XCOM HP</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="kill_abort">
-            <td>Kill Abort %</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="kill_abort_ufo_hp">
-            <td>Ave. UFO HP</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="kill_abort_xcom_hp">
-            <td>Ave. XCOM HP</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="stalemate">
-            <td>Stalemate %</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="stalemate_ufo_hp">
-            <td>Ave. UFO HP</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="stalemate_xcom_hp">
-            <td>Ave. XCOM HP</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="death_abort">
-            <td>Death Abort %</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="death_abort_ufo_hp">
-            <td>Ave. UFO HP</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="death_abort_time">
-            <td>Ave. Engage Time</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="death">
-            <td>Death %</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="death_ufo_hp">
-            <td>Ave. UFO HP</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-          <tr id="death_time">
-            <td>Ave. Engage Time</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-          </tr>
-        </table>
-      </div>
-      <div>
-        <input type="button" id="start_btn" value="Begin Simulation">
+        </section>
+        <section id="ufo">
+          <h1>UFO</h1>
+          <span>
+            Type:
+            <select name="" id="ufo_type">
+              <option value="scout">Scout</option>
+              <option value="fighter">Fighter</option>
+              <option value="raider">Raider</option>
+              <option value="destroyer">Destroyer</option>
+              <option value="harvester">Harvester</option>
+              <option value="abductor">Abductor</option>
+              <option value="transport">Transport</option>
+              <option value="terror">Terror</option>
+              <option value="battleship">Battleship</option>
+              <option value="assault_carrier">Assault Carrier</option>
+              <option value="overseer">Overseer</option>
+            </select>
+          </span>
+          <span>
+            Alien Research:
+            <input type="number" id="alien_research" value="0" min="0" max="960" />
+          </span>
+          <span>
+            Starting Health(%):
+            <input type="number" id="start_health" value="100" min="1" max="100" />
+          </span>
+          <span>
+            Always Gets Hit: 
+            <input type="checkbox" id="always_hit" >
+          </span>
+        </section>
+        <section id="results">
+          <h1>Simulation Results</h1>
+          <table>
+            
+            <tr>
+              <th><span class="blank">Blank</span></th>
+              <th class="blue">Blue Ranger</th>
+              <th class="green">Green Hornet</th>
+              <th class="red">Red Devil</th>
+            </tr>
+            <tr id="kill">
+              <td>Kill %</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="kill_destroyed">
+              <td>% Kills Destroyed</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="kill_xcom_hp">
+              <td>Ave. XCOM HP</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="kill_abort">
+              <td>Kill Abort %</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="kill_abort_ufo_hp">
+              <td>Ave. UFO HP</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="kill_abort_xcom_hp">
+              <td>Ave. XCOM HP</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="stalemate">
+              <td>Stalemate %</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="stalemate_ufo_hp">
+              <td>Ave. UFO HP</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="stalemate_xcom_hp">
+              <td>Ave. XCOM HP</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="death_abort">
+              <td>Death Abort %</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="death_abort_ufo_hp">
+              <td>Ave. UFO HP</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="death_abort_time">
+              <td>Ave. Engage Time</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="death">
+              <td>Death %</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="death_ufo_hp">
+              <td>Ave. UFO HP</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+            <tr id="death_time">
+              <td>Ave. Engage Time</td>
+              <td class="blue"></td>
+              <td class="green"></td>
+              <td class="red"></td>
+            </tr>
+          </table>
+        </section>
       </div>
     </main>
+            <div>
+              <input type="button" id="start_btn" value="Begin Simulation">
+            </div>
+    
+    <footer id="main-footer">
+      
+      Copyright &copy; 2019
+    </footer>
   </body>
   <script type="text/javascript" src="./js/main.js"></script>
   <script type="text/javascript" src="./js/combat.js"></script>

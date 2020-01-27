@@ -1,21 +1,63 @@
+* {
+  box-sizing: border-box; }
+
+body,
+html {
+  height: 100vh; }
+
 body {
   background: #444;
-  color: #fff; }
+  color: #fff;
+  margin: 0;
+  font-family: Geneva, Tahoma, sans-serif;
+  line-height: 1.1; }
 
-#interceptors div,
-#strategy_layer div {
-  display: inline-block; }
+main {
+  padding: 0rem 4rem; }
 
-.interceptor span,
-#strategy_layer span {
-  display: block; }
+.grid-container {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-areas: "interceptor1 interceptor2 interceptor3" "strategy foundry ufo" "results results results"; }
 
-table {
+#blueRanger {
+  grid-area: interceptor1;
+  background-color: blue; }
+
+#greenHornet {
+  grid-area: interceptor2;
+  background-color: green; }
+
+#redDevil {
+  grid-area: interceptor3;
+  background-color: red; }
+
+#strategy {
+  grid-area: strategy;
+  background-color: #eee; }
+
+#foundry {
+  grid-area: foundry;
+  background-color: #ddd; }
+
+#ufo {
+  grid-area: ufo;
+  background-color: #aaa; }
+
+#results {
+  grid-area: results;
+  background-color: #ccc;
   border: 3px solid #fff;
   border-collapse: collapse; }
-  table .blank {
+  #results .blank {
     display: none; }
 
-td, th {
-  border: 1px dotted  #fff;
+td,
+th {
+  border: 1px dotted #fff;
   padding: 0.2rem; }
+
+#main-footer {
+  text-align: center;
+  padding: 1rem;
+  height: 60px; }
