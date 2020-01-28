@@ -17,61 +17,97 @@ body {
 }
 
 main {
-	padding: 0rem 4rem;
+	padding: 1rem 4rem;
+	font-size: smaller;
+}
+
+section {
+	margin: 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+h1 {
+	margin: 0;
+	padding: 0.1rem;
+	text-align: center;
+	font-size: large;
+}
+
+select,
+input {
+	padding: 0;
+	margin: 0.2rem auto;
+	box-sizing: border-box;
+  width: 5rem;
+  display: block;
+  text-align: center;
+  
+}
+
+::-webkit-inner-spin-button {
+  display: none;
+}
+
+::-webkit-clear-button {
+  display: none;
 }
 
 .grid-container {
 	display: grid;
-	grid-gap: 0.5rem;
+	// grid-gap: 0.1rem;
 	grid-template-areas:
 		"interceptor1 interceptor2 interceptor3"
-		"strategy foundry ufo"
-		"results results results";
+		"strategy     foundry      ufo"
+		"results      results      results";
+	grid-template-columns: repeat(3, 1fr);
 }
 #blueRanger {
-  grid-area: interceptor1;
-  background-color: blue;
+	grid-area: interceptor1;
+	background-color: blue;
 }
 
 #greenHornet {
-  grid-area: interceptor2;
-  background-color: green;
+	grid-area: interceptor2;
+	background-color: green;
 }
 
 #redDevil {
-  grid-area: interceptor3;
-  background-color: red;
+	grid-area: interceptor3;
+	background-color: red;
 }
 
 #strategy {
-  grid-area: strategy;
-  background-color: #eee;
+	grid-area: strategy;
+	background-color: #eee;
 }
 
 #foundry {
-  grid-area: foundry;
-  background-color: #ddd;
+	grid-area: foundry;
+	background-color: #ddd;
 }
 
 #ufo {
-  grid-area: ufo;
-  background-color: #aaa;
+	grid-area: ufo;
+	background-color: #aaa;
 }
 
 #results {
-  grid-area: results;
-  background-color: #ccc;
-	border: 3px solid #fff;
-	border-collapse: collapse;
+	grid-area: results;
+	background-color: #ccc;
 
 	.blank {
 		display: none;
 	}
 }
 
+table {
+	border-collapse: collapse;
+	text-align: right;
+}
 td,
 th {
-	border: 1px dotted #fff;
+	border: 1px solid #fff;
 	padding: 0.2rem;
 }
 
