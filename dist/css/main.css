@@ -49,15 +49,15 @@ input {
 
 #blueRanger {
   grid-area: interceptor1;
-  background-color: blue; }
+  background-color: #6495ed; }
 
 #greenHornet {
   grid-area: interceptor2;
-  background-color: green; }
+  background-color: #04af70; }
 
 #redDevil {
   grid-area: interceptor3;
-  background-color: red; }
+  background-color: #ff3434; }
 
 #strategy {
   grid-area: strategy;
@@ -84,7 +84,8 @@ table {
 td,
 th {
   border: 1px solid #fff;
-  padding: 0.2rem; }
+  padding: 0.2rem;
+  font-size: 0.8rem; }
 
 #main-footer {
   text-align: center;

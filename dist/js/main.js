@@ -9,10 +9,27 @@
  // Strategy layer
  let friendlySkies,
  ufoAnalysis,
- sequentialInterceptions;
+ sequentialInterceptions,
+ gameDate;
 
  // Ufo
- let alwaysHitchecked;
+ let alienResearch,
+    alwaysHit;
+
+ alienResearch = document.getElementById('alien_research');
+ gameDate = document.getElementById('game_date');
+ 
+ document.getElementById('game_date').oninput = function() { alienResearch.value = setResearchByDate(gameDate, 1)}
+
+ function setResearchByDate(date, multiplier) {
+     let dateValue = Number(new Date(date.value));
+    //  numbers below are values milliseconds for 03/01/2016 and milliseconds in a day
+     let research = ((dateValue - 1456790400000) / 86400000) * multiplier;
+     console.log(research);
+     return research;
+ }
+
+
 
 
 // Number of simulations to run

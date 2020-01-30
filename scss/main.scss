@@ -1,4 +1,7 @@
 $primary-color: #444;
+$blue-ranger-color: #6495ed;
+$green-hornet-color: #04af70;
+$red-devil-color: #ff3434;
 
 * {
 	box-sizing: border-box;
@@ -47,6 +50,7 @@ input {
 
 ::-webkit-inner-spin-button {
   display: none;
+  
 }
 
 ::-webkit-clear-button {
@@ -64,17 +68,17 @@ input {
 }
 #blueRanger {
 	grid-area: interceptor1;
-	background-color: blue;
+	background-color: $blue-ranger-color;
 }
 
 #greenHornet {
 	grid-area: interceptor2;
-	background-color: green;
+	background-color: $green-hornet-color;
 }
 
 #redDevil {
 	grid-area: interceptor3;
-	background-color: red;
+	background-color: $red-devil-color;
 }
 
 #strategy {
@@ -108,7 +112,8 @@ table {
 td,
 th {
 	border: 1px solid #fff;
-	padding: 0.2rem;
+  padding: 0.2rem;
+  font-size: 0.8rem;
 }
 
 #main-footer {
