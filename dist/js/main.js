@@ -33,7 +33,7 @@
 
 
 // Number of simulations to run
-const simulations = 50;
+const simulations = 100;
 
 function buildInterceptor() {
 	let interceptors = document.getElementsByClassName("interceptor");

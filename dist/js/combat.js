@@ -15,7 +15,7 @@ const WEAPON_TABLE = {
 	xcomFusion: { hitChance: 30, dmg: 1200, penetration: 26, shotDelay: 1250 },
 	singlePlasma: { hitChance: 33, dmg: 450, penetration: 0, shotDelay: 1150 },
 	doublePlasma: { hitChance: 40, dmg: 800, penetration: 20, shotDelay: 1250 },
-	ufoFusion: { hitChance: 45, dmg: 1300, penetration: 50, shotDelay: 1250 },
+	ufoFusion: { hitChance: 45, dmg: 1300, penetration: 50, shotDelay: 1250 }
 };
 
 const UFO_TABLE = {

@@ -1,7 +1,9 @@
 $primary-color: #444;
+$secondary-color: #fffafa;
 $blue-ranger-color: #6495ed;
 $green-hornet-color: #04af70;
 $red-devil-color: #ff3434;
+$ufo-color: #9966cc;
 
 * {
 	box-sizing: border-box;
@@ -13,10 +15,10 @@ html {
 }
 body {
 	background: $primary-color;
-	color: #fff;
+	color: $secondary-color;
 	margin: 0;
-	font-family: Geneva, Tahoma, sans-serif;
-	line-height: 1.1;
+	font-family: 'Rubik', Tahoma, sans-serif;
+	line-height: 1.4;
 }
 
 main {
@@ -30,7 +32,8 @@ section {
 	text-align: center;
 }
 
-h1,caption {
+h1,
+caption {
 	margin: 0;
 	padding-bottom: 0.5rem;
 	text-align: center;
@@ -46,15 +49,39 @@ select,
 input {
 	padding: 0;
 	margin: 0.1rem 0;
-	box-sizing: border-box;
+	// box-sizing: border-box;
 	width: 5rem;
 	text-align: center;
+	background-color: rgba($secondary-color, 0.7);
+	border: 2px solid $secondary-color;
+	border-radius: 20px;
+
+	&:hover {
+		border-color: yellow;
+	}
+
+	&:focus {
+		outline: none;
+	}
 }
 
 input[type="checkbox"] {
-	// padding: 0;
+	// padding-top: 0.1rem;
 	margin: auto 0;
 	width: 0.8rem;
+}
+
+#start_btn {
+	width: 70%;
+	padding: 1rem 0.3rem;
+	margin: 0 auto;
+	text-transform: uppercase;
+	font-size: medium;
+	font-weight: bold;
+
+	&:hover {
+		background-color: yellow;
+	}
 	
 }
 
@@ -109,7 +136,7 @@ input[type="checkbox"] {
 
 #ufo {
 	grid-area: ufo;
-	background-color: #aaa;
+	background-color: $ufo-color;
 }
 
 #results {
@@ -126,6 +153,23 @@ input[type="checkbox"] {
 	background-color: #bbb;
 }
 
+.blue {
+	background-color: $blue-ranger-color;
+}
+
+.green {
+	background-color: $green-hornet-color;
+}
+
+.red {
+	background-color: $red-devil-color;
+}
+
+.ufo_stats {
+	background-color: $ufo-color;
+	
+}
+
 table {
 	border-collapse: collapse;
 	text-align: center;
@@ -133,13 +177,39 @@ table {
 td,
 th {
 	border: 1px solid #fff;
-	font-size: 0.8rem;
+	// font-size: 0.8rem;
 	padding: 0.1rem;
 }
 
-td.blue, td.green, td.red {
-	width: 25%;
+th {
+	font-size: 0.8rem;
 }
+
+td {
+	font-size: 0.7rem;
+}
+tr:nth-last-child(3n + 0) {
+	font-weight: bold;
+}
+
+// td.blue,
+// td.green,
+// td.red {
+// 	width: 25%;
+// }
+
+#simulation {
+	td {
+		width: 25%;
+	}
+}
+
+#stats {
+	th, td {
+		width: 20%;
+	}
+}
+
 
 #main-footer {
 	text-align: center;
