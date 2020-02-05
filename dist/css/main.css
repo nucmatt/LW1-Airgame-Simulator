@@ -9,7 +9,7 @@ body {
   background: #444;
   color: #fffafa;
   margin: 0;
-  font-family: 'Rubik', Tahoma, sans-serif;
+  font-family: "Rubik", Tahoma, sans-serif;
   line-height: 1.4; }
 
 main {
@@ -18,7 +18,7 @@ main {
 
 section {
   margin: 0;
-  padding: 1rem 0.5rem;
+  padding: 0.5rem;
   text-align: center; }
 
 h1,
@@ -70,7 +70,7 @@ input[type="checkbox"] {
 
 .grid-container {
   display: grid;
-  grid-template-areas: "interceptor1 interceptor2 interceptor3" "strategy     foundry      ufo" "results      button       computed";
+  grid-template-areas: "strategy     foundry      foundry" "interceptor1 interceptor2 interceptor3" "ufo          ufo          ufo" "button       button       button" "results      results      results";
   grid-template-columns: repeat(3, 1fr); }
 
 .subgrid {
@@ -96,15 +96,24 @@ input[type="checkbox"] {
 
 #foundry {
   grid-area: foundry;
-  background-color: #ddd; }
+  background-color: #ddd;
+  display: inline-block; }
+  #foundry .column {
+    width: 40%;
+    display: inline-block; }
 
 #ufo {
   grid-area: ufo;
   background-color: #9966cc; }
+  #ufo .subgrid {
+    display: inline-block; }
 
 #results {
   grid-area: results;
   background-color: #ccc; }
+  #results table {
+    display: inline-table;
+    padding: 0 0.5rem; }
   #results .blank {
     display: none; }
 
@@ -126,7 +135,10 @@ input[type="checkbox"] {
 
 table {
   border-collapse: collapse;
-  text-align: center; }
+  text-align: right; }
+
+#simulation tr:nth-last-child(3n + 0) {
+  font-weight: bold; }
 
 td,
 th {
@@ -134,18 +146,17 @@ th {
   padding: 0.1rem; }
 
 th {
-  font-size: 0.8rem; }
+  font-size: 0.9rem;
+  text-align: center; }
 
 td {
-  font-size: 0.7rem; }
-
-tr:nth-last-child(3n + 0) {
-  font-weight: bold; }
+  font-size: 0.8rem; }
 
 #simulation td {
   width: 25%; }
 
-#stats th, #stats td {
+#stats th,
+#stats td {
   width: 20%; }
 
 #main-footer {

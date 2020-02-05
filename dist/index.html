@@ -197,13 +197,13 @@
               <label for="friendly_skies">Friendly Skies:</label>
                 <input type="checkbox" id="friendly_skies" />
               
-              <label for="game_date">Campaign Date:</label>
+              <!-- <label for="game_date">Campaign Date:</label>
                 <input type="date" id="game_date" value="2016-03-01" />
-              </div>
+              </div> -->
           </section>
           <section id="foundry">
             <h1>Foundry Projects</h1>
-            <div class="subgrid">      
+            <div class="subgrid column">      
                 <label for="AF">Armored Fighters:</label>
                   <input type="checkbox" id="AF" />
                 
@@ -212,7 +212,8 @@
                 
                 <label for="avionics">Enhanced Avionics:</label>
                   <input type="checkbox" id="avionics" />
-                
+            </div>
+            <div class="subgrid column">  
                 <label for="penWeapons">Penetrator Weapons:</label>
                   <input type="checkbox" id="penWeapons" />
                 
@@ -251,6 +252,11 @@
             <label for="always_hit">Always Gets Hit:</label>
               <input type="checkbox" id="always_hit" >
             </div>
+        </section>
+        <section id="simulation_start_btn">
+          <label for="start_btn">
+            <input type="button" id="start_btn" value="Begin Simulation">
+          </label>
         </section>
         <section id="results">
          
@@ -357,147 +363,143 @@
               </tr>
             </tbody>
           </table>
-        </section>
-        <section id="simulation_start_btn">
-          <label for="start_btn">
-            <input type="button" id="start_btn" value="Begin Simulation">
-          </label>
+          <table id="stats">
+            <caption>Craft Stats</caption>
+            <thead>
+              <tr>
+                <th><span class="blank"></span></th>
+                <th class="blue">Blue Ranger</th>
+                <th class="green">Green Hornet</th>
+                <th class="red">Red Demon</th>
+                <th class="ufo_stats">UFO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="health">
+                <td>Health</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="armor">
+                <td>Armor</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="penetration">
+                <td>Penetration</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="engage_time">
+                <td>Eng. Time(secs)</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="primary_weapon">
+                <td>Pri. Weapon</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="primary_accuracy">
+                <td>Accuracy</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="secondary_weapon">
+                <td>Sec. Weapon</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="secondary_accuracy">
+                <td>Accuracy</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="armor_mitigation">
+                <td>Arm. Mitigation</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="min_damage">
+                <td>Min. Dmg/Hit</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="crit_chance">
+                <td>Crit Chance</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="max_damage_crit">
+                <td>Max Dmg/Crit</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="primary_dps">
+                <td>Primary DPS</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="secondary_dps">
+                <td>Secondary DPS</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="seconds_kill">
+                <td>Seconds to Kill</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="engagements_kill">
+                <td>Eng(s)./Kill</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+              <tr id="kills_death">
+                <td>Kills/Death</td>
+                <td class="blue"></td>
+                <td class="green"></td>
+                <td class="red"></td>
+                <td class="ufo_stats"></td>
+              </tr>
+            </tbody>
+          </table>
         </section>
       </div>
+          
 
-      <table id="stats">
-        <caption>Craft Stats</caption>
-        <thead>
-          <tr>
-            <th><span class="blank"></span></th>
-            <th class="blue">Blue Ranger</th>
-            <th class="green">Green Hornet</th>
-            <th class="red">Red Demon</th>
-            <th class="ufo_stats">UFO</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr id="health">
-            <td>Health</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="armor">
-            <td>Armor</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="penetration">
-            <td>Penetration</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="engage_time">
-            <td>Eng. Time(secs)</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="primary_weapon">
-            <td>Pri. Weapon</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="primary_accuracy">
-            <td>Accuracy</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="secondary_weapon">
-            <td>Sec. Weapon</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="secondary_accuracy">
-            <td>Accuracy</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="armor_mitigation">
-            <td>Arm. Mitigation</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="min_damage">
-            <td>Min. Dmg/Hit</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="crit_chance">
-            <td>Crit Chance</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="max_damage_crit">
-            <td>Max Dmg/Crit</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="primary_dps">
-            <td>Primary DPS</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="secondary_dps">
-            <td>Secondary DPS</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="seconds_kill">
-            <td>Seconds to Kill</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="engagements_kill">
-            <td>Eng(s)./Kill</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-          <tr id="kills_death">
-            <td>Kills/Death</td>
-            <td class="blue"></td>
-            <td class="green"></td>
-            <td class="red"></td>
-            <td class="ufo_stats"></td>
-          </tr>
-        </tbody>
-      </table>
     </main>
             
     

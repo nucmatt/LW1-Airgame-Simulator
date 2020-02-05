@@ -1,9 +1,5 @@
-$primary-color: #444;
-$secondary-color: #fffafa;
-$blue-ranger-color: #6495ed;
-$green-hornet-color: #04af70;
-$red-devil-color: #ff3434;
-$ufo-color: #9966cc;
+@import "config";
+@import "menu";
 
 * {
 	box-sizing: border-box;
@@ -17,7 +13,7 @@ body {
 	background: $primary-color;
 	color: $secondary-color;
 	margin: 0;
-	font-family: 'Rubik', Tahoma, sans-serif;
+	font-family: "Rubik", Tahoma, sans-serif;
 	line-height: 1.4;
 }
 
@@ -28,7 +24,7 @@ main {
 
 section {
 	margin: 0;
-	padding: 1rem 0.5rem;
+	padding: 0.5rem;
 	text-align: center;
 }
 
@@ -82,24 +78,17 @@ input[type="checkbox"] {
 	&:hover {
 		background-color: yellow;
 	}
-	
-}
-
-::-webkit-inner-spin-button {
-	display: none;
-}
-
-::-webkit-clear-button {
-	display: none;
 }
 
 .grid-container {
 	display: grid;
 	// grid-gap: 0.1rem;
 	grid-template-areas:
+		"strategy     foundry      foundry"
 		"interceptor1 interceptor2 interceptor3"
-		"strategy     foundry      ufo"
-		"results      button       computed";
+		"ufo          ufo          ufo"
+		"button       button       button"
+		"results      results      results";
 	grid-template-columns: repeat(3, 1fr);
 }
 
@@ -132,16 +121,31 @@ input[type="checkbox"] {
 #foundry {
 	grid-area: foundry;
 	background-color: #ddd;
+	display: inline-block;
+	
+	.column {
+		width: 40%;
+		display: inline-block;
+	}
 }
 
 #ufo {
 	grid-area: ufo;
 	background-color: $ufo-color;
+	
+	.subgrid {
+		display: inline-block
+	}
 }
 
 #results {
 	grid-area: results;
 	background-color: #ccc;
+
+	table {
+		display: inline-table;
+		padding: 0 0.5rem;
+	}
 
 	.blank {
 		display: none;
@@ -167,13 +171,19 @@ input[type="checkbox"] {
 
 .ufo_stats {
 	background-color: $ufo-color;
-	
 }
 
 table {
 	border-collapse: collapse;
-	text-align: center;
+	text-align: right;
 }
+
+#simulation {
+tr:nth-last-child(3n + 0) {
+		font-weight: bold;		
+	}
+}
+		
 td,
 th {
 	border: 1px solid #fff;
@@ -182,15 +192,15 @@ th {
 }
 
 th {
-	font-size: 0.8rem;
+	font-size: 0.9rem;
+	text-align: center;
 }
 
 td {
-	font-size: 0.7rem;
+	font-size: 0.8rem;
 }
-tr:nth-last-child(3n + 0) {
-	font-weight: bold;
-}
+
+
 
 // td.blue,
 // td.green,
@@ -205,14 +215,16 @@ tr:nth-last-child(3n + 0) {
 }
 
 #stats {
-	th, td {
+	th,
+	td {
 		width: 20%;
 	}
 }
-
 
 #main-footer {
 	text-align: center;
 	padding: 1rem;
 	height: 60px;
 }
+
+@import "mediaqueries";
