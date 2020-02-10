@@ -5,6 +5,10 @@ $blue-ranger-color: #6495ed;
 $green-hornet-color: #04af70;
 $red-devil-color: #ff3434;
 $ufo-color: #9966cc;
+$show-home-image: true;
+$home-image: url(../img/background.jpg);
+$background-opacity: 0.8;
+$grid-opacity: 0.6;
 
 // Browser settings
 ::-webkit-inner-spin-button {
@@ -13,6 +17,27 @@ $ufo-color: #9966cc;
 
 ::-webkit-clear-button {
 	display: none;
+}
+
+@mixin background {
+  @if $show-home-image {
+    &#bg-img {
+      background: $home-image;
+      background-attachment: fixed;
+      background-size: cover;
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: rgba($primary-color, $background-opacity);
+      }
+    }
+  }
 }
 
 // Media Query Mixins

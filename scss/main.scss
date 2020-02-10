@@ -5,13 +5,16 @@
 	box-sizing: border-box;
 }
 
-body,
-html {
-	height: 100vh;
-}
+// html, body {
+// 	height: 100%;
+// }
+
 body {
+	@include background();
 	background: $primary-color;
 	color: $secondary-color;
+	height: 100%;
+	position: relative;
 	margin: 0;
 	font-family: "Rubik", Tahoma, sans-serif;
 	line-height: 1.4;
@@ -20,6 +23,7 @@ body {
 main {
 	padding: 1rem 2rem;
 	font-size: smaller;
+	min-height: calc(100vh - 60px);
 }
 
 section {
@@ -82,7 +86,7 @@ input[type="checkbox"] {
 
 .grid-container {
 	display: grid;
-	// grid-gap: 0.1rem;
+	min-height: 100%;
 	grid-template-areas:
 		"strategy     foundry      foundry"
 		"interceptor1 interceptor2 interceptor3"
@@ -100,29 +104,32 @@ input[type="checkbox"] {
 
 #blueRanger {
 	grid-area: interceptor1;
-	background-color: $blue-ranger-color;
+	// background-color: rgba($blue-ranger-color, $grid-opacity);
+	border-radius: 20px;
 }
 
 #greenHornet {
 	grid-area: interceptor2;
-	background-color: $green-hornet-color;
+	// background-color: rgba($green-hornet-color, 0.6);
+	border-radius: 20px;
 }
 
 #redDevil {
 	grid-area: interceptor3;
-	background-color: $red-devil-color;
+	// background-color: rgba($red-devil-color, 0.6);
+	border-radius: 20px;
 }
 
 #strategy {
 	grid-area: strategy;
-	background-color: #eee;
+	// background-color: #eee;
 }
 
 #foundry {
 	grid-area: foundry;
-	background-color: #ddd;
+	// background-color: #ddd;
 	display: inline-block;
-	
+
 	.column {
 		width: 40%;
 		display: inline-block;
@@ -131,16 +138,16 @@ input[type="checkbox"] {
 
 #ufo {
 	grid-area: ufo;
-	background-color: $ufo-color;
-	
+	border-radius: 20px;
+
 	.subgrid {
-		display: inline-block
+		display: inline-block;
 	}
 }
 
 #results {
 	grid-area: results;
-	background-color: #ccc;
+	// background-color: #ccc;
 
 	table {
 		display: inline-table;
@@ -154,23 +161,23 @@ input[type="checkbox"] {
 
 #simulation_start_btn {
 	grid-area: button;
-	background-color: #bbb;
+	// background-color: #bbb;
 }
 
 .blue {
-	background-color: $blue-ranger-color;
+	background-color: rgba($blue-ranger-color, $grid-opacity);
 }
 
 .green {
-	background-color: $green-hornet-color;
+	background-color: rgba($green-hornet-color, $grid-opacity);
 }
 
 .red {
-	background-color: $red-devil-color;
+	background-color: rgba($red-devil-color, $grid-opacity);
 }
 
-.ufo_stats {
-	background-color: $ufo-color;
+.ufo_color {
+	background-color: rgba($ufo-color, $grid-opacity);
 }
 
 table {
@@ -179,11 +186,11 @@ table {
 }
 
 #simulation {
-tr:nth-last-child(3n + 0) {
-		font-weight: bold;		
+	tr:nth-last-child(3n + 0) {
+		font-weight: bold;
 	}
 }
-		
+
 td,
 th {
 	border: 1px solid #fff;
@@ -199,8 +206,6 @@ th {
 td {
 	font-size: 0.8rem;
 }
-
-
 
 // td.blue,
 // td.green,
