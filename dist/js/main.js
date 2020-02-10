@@ -19,7 +19,7 @@
  alienResearch = document.getElementById('alien_research');
  gameDate = document.getElementById('game_date');
  
- document.getElementById('game_date').oninput = function() { alienResearch.value = setResearchByDate(gameDate, 1)}
+//  document.getElementById('game_date').oninput = function() { alienResearch.value = setResearchByDate(gameDate, 1)}
 
  function setResearchByDate(date, multiplier) {
      let dateValue = Number(new Date(date.value));
@@ -33,7 +33,7 @@
 
 
 // Number of simulations to run
-const simulations = 100;
+const simulations = 2;
 
 function buildInterceptor() {
 	let interceptors = document.getElementsByClassName("interceptor");
