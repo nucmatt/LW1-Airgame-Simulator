@@ -513,7 +513,7 @@ function AirCombat(interceptor, ufo) {
 
 
 // Air combat results
-function Results() {
+function Results() { 
 	this.kill = { number: 0, destroyed: 0, xcomHealth: 0 };
 	this.killAbort = { number: 0, ufoHealth: 0, xcomHealth: 0 };
 	this.stalemate = { number: 0, ufoHealth: 0, xcomHealth: 0 };
@@ -642,4 +642,40 @@ function engagement(interception) {
 		}
 	}
 	return updateStalemate(outcome, interception.xcomHealth, interception.ufoHealth);
+}
+
+function calculateInterceptorStats (interceptor, ufo, interception) {
+	let stats = [];
+
+	let armorMitigation = interception.armorMitigation(ufo.armor, interceptor.penetration);
+	let minDmgPerHit = interceptor.baseDmg * (1 - armorMitigation);
+	let maxDmgPerCrit = minDmgPerHit * 3;
+	let primaryDPS = damagePerSecond(minDmgPerHit, interception.xcomCritChance, interception.xcomHitChance, interceptor.shotDelay);
+	let secDmgPerHit = interceptor.secondaryDmg * (1 - armorMitigation);
+	let secondaryDPS = interceptor.secondary ? damagePerSecond(secDmgPerHit, interception.xcomSecondaryCritChance, interception.xcomSecondaryHitChance, interceptor.secondaryShotDelay) : 0;
+	let secToKill = ufo.health / (primaryDPS + secondaryDPS);
+	let engagementsPerKill = secToKill / interception.interceptionTime;
+
+	stats.push(interceptor.health);
+	stats.push(interceptor.armor);
+	stats.push(interceptor.penetration);
+	stats.push(interception.interceptionTime);
+	stats.push(interceptor.weapon);
+	stats.push(interception.xcomHitChance);
+	stats.push(interceptor.secondary);
+	stats.push(interception.xcomSecondaryHitChance);
+	stats.push(armorMitigation);
+	stats.push(minDmgPerHit.toFixed(1));
+	stats.push(interception.xcomCritChance);
+	stats.push(maxDmgPerCrit.toFixed(1));
+	stats.push(primaryDPS.toFixed(1));
+	stats.push(secondaryDPS.toFixed(1));
+	stats.push(secToKill.toFixed(1));
+	stats.push((engagementsPerKill * 1000).toFixed(1));
+
+	return stats;
+}
+
+function damagePerSecond (minDmg, critChance, hitChance, shotDelay) {
+	return (((minDmg * 1.25) + ((minDmg * 1.25) * critChance)) * hitChance) / shotDelay;
 }

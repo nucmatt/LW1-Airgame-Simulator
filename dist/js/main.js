@@ -184,6 +184,13 @@ function simulation() {
     console.log(interceptionGreen.outcome);
     console.log("Red INTERCEPTION RESULTS");
     console.log(interceptionRed.outcome);
+
+    console.log("Blue stats");
+    console.log(calculateInterceptorStats(interceptorBlue, ufo, interceptionBlue));
+    console.log("Green stats");
+    console.log(calculateInterceptorStats(interceptorGreen, ufo, interceptionGreen));
+    console.log("Red stats");
+    console.log(calculateInterceptorStats(interceptorRed, ufo, interceptionRed));
     
     resultsBlue = calculateResults(interceptionBlue.outcome, interceptorBlue.health, ufo.health)
     resultsGreen = calculateResults(interceptionGreen.outcome, interceptorGreen.health, ufo.health)
