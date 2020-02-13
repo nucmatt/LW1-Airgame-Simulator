@@ -555,16 +555,15 @@ function calculateResults(outcome, interceptorHealth, ufoHealth) {
 
 
 
-function displayResults(column, numbers) {
-	console.log(numbers);
-	for (let i = 0; i < column.length; i++) {
-		if (isNaN(numbers[i])) {
+function displayResults(column, results) {
+	for (let i = 0; i < results.length; i++) {
+		if (isNaN(results[i])) {
 			column[i].innerHTML = '-';
 		// These two indicies are for Engagement times so no % appended
 		} else if (i === 11 || i === 14) {
-			column[i].innerHTML = numbers[i].toFixed(2);
+			column[i].innerHTML = results[i].toFixed(2);
 		} else {
-			column[i].innerHTML = numbers[i] + '%';
+			column[i].innerHTML = results[i] + '%';
 		}
 	}
 }
@@ -662,8 +661,6 @@ function calculateInterceptorStats (interceptor, ufo, interception) {
 	stats.push(interception.interceptionTime);
 	stats.push(interceptor.weapon);
 	stats.push(interception.xcomHitChance);
-	stats.push(interceptor.secondary);
-	stats.push(interception.xcomSecondaryHitChance);
 	stats.push(armorMitigation);
 	stats.push(minDmgPerHit.toFixed(1));
 	stats.push(interception.xcomCritChance);
@@ -674,6 +671,16 @@ function calculateInterceptorStats (interceptor, ufo, interception) {
 	stats.push((engagementsPerKill * 1000).toFixed(1));
 
 	return stats;
+}
+
+function displayInterceptorStats(column, stats) {
+	for (let i = 0; i < stats.length; i++) {
+		 if (i === 5 || i === 6 || i === 8) {
+			column[i].innerHTML = stats[i] + '%';
+		} else {
+		column[i].innerHTML = stats[i];
+		}
+	}
 }
 
 function damagePerSecond (minDmg, critChance, hitChance, shotDelay) {

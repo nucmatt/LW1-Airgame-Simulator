@@ -70,6 +70,9 @@ input[type="checkbox"] {
   margin: auto 0;
   width: 0.8rem; }
 
+.capitalize {
+  text-transform: capitalize; }
+
 #start_btn {
   width: 70%;
   padding: 1rem 0.3rem;
@@ -144,29 +147,25 @@ input[type="checkbox"] {
 
 table {
   border-collapse: collapse;
-  text-align: right; }
+  text-align: right;
+  padding: 0.1em;
+  margin: 0.1em; }
 
 #simulation tr:nth-last-child(3n + 0) {
   font-weight: bold; }
 
 td,
 th {
-  border: 1px solid #fff;
-  padding: 0.1rem; }
+  border: 1px solid #fffafa;
+  padding: 0.1rem;
+  width: 25%;
+  text-align: center; }
 
 th {
-  font-size: 0.9rem;
-  text-align: center; }
+  font-size: 0.9rem; }
 
 td {
   font-size: 0.8rem; }
-
-#simulation td {
-  width: 25%; }
-
-#stats th,
-#stats td {
-  width: 20%; }
 
 #main-footer {
   text-align: center;

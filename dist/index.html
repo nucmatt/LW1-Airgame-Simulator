@@ -205,7 +205,7 @@
             <h1>Foundry Projects</h1>
             <div class="subgrid column">      
                 <label for="AF">Armored Fighters:</label>
-                  <input type="checkbox" id="AF" />
+                  <input type="checkbox" id="AF" /><br>
                 
                 <label for="afterburners">Elerium Afterburners:</label>
                   <input type="checkbox" id="afterburners" />
@@ -261,7 +261,7 @@
         <section id="results">
          
           <table id="simulation">
-            <caption>Simulation Results</caption>
+            <caption>Engagement Results</caption>
             <thead>
               <tr>
                 <th><span class="blank">Blank</span></th>
@@ -273,226 +273,196 @@
             <tbody>
               <tr id="kill">
                 <td>Kill %</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="kill_destroyed">
                 <td>% Destroyed</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="kill_xcom_hp">
                 <td>Av. XCOM HP</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="kill_abort">
                 <td>KillAbort%</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="kill_abort_ufo_hp">
                 <td>Av. UFO HP</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="kill_abort_xcom_hp">
                 <td>Av. XCOM HP</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="stalemate">
                 <td>Stalemate %</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="stalemate_ufo_hp">
                 <td>Av. UFO HP</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="stalemate_xcom_hp">
                 <td>Av. XCOM HP</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="death_abort">
                 <td>DeathAbort%</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="death_abort_ufo_hp">
                 <td>Av. UFO HP</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="death_abort_time">
                 <td>Av. Eng Time</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="death">
                 <td>Death %</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="death_ufo_hp">
                 <td>Av. UFO HP</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
               <tr id="death_time">
                 <td>Av. Eng Time</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
+                <td class="result blue"></td>
+                <td class="result green"></td>
+                <td class="result red"></td>
               </tr>
             </tbody>
           </table>
+
           <table id="stats">
-            <caption>Craft Stats</caption>
+            <caption>Interceptor Stats</caption>
             <thead>
               <tr>
                 <th><span class="blank"></span></th>
                 <th class="blue">Blue Ranger</th>
                 <th class="green">Green Hornet</th>
                 <th class="red">Red Demon</th>
-                <th class="ufo_stats ufo_color">UFO</th>
               </tr>
             </thead>
             <tbody>
               <tr id="health">
                 <td>Health</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="armor">
                 <td>Armor</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="penetration">
                 <td>Penetration</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="engage_time">
-                <td>Eng. Time(secs)</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td>Eng. Time(sec)</td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="primary_weapon">
                 <td>Pri. Weapon</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue capitalize"></td>
+                <td class="value green capitalize"></td>
+                <td class="value red capitalize"></td>
               </tr>
               <tr id="primary_accuracy">
                 <td>Accuracy</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
-              </tr>
-              <tr id="secondary_weapon">
-                <td>Sec. Weapon</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
-              </tr>
-              <tr id="secondary_accuracy">
-                <td>Accuracy</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="armor_mitigation">
-                <td>Arm. Mitigation</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td>Arm. Mit.</td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="min_damage">
                 <td>Min. Dmg/Hit</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="crit_chance">
                 <td>Crit Chance</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="max_damage_crit">
                 <td>Max Dmg/Crit</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="primary_dps">
                 <td>Primary DPS</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="secondary_dps">
-                <td>Secondary DPS</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td>Sparrow DPS</td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="seconds_kill">
                 <td>Seconds to Kill</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
               <tr id="engagements_kill">
                 <td>Eng(s)./Kill</td>
-                <td class="blue"></td>
-                <td class="green"></td>
-                <td class="red"></td>
-                <td class="ufo_stats ufo_color"></td>
+                <td class="value blue"></td>
+                <td class="value green"></td>
+                <td class="value red"></td>
               </tr>
             </tbody>
           </table>
         </section>
       </div>
-          
-
     </main>
             
     

@@ -109,9 +109,15 @@ function simulation() {
 	 interceptionBlue = new AirCombat(interceptorBlue, ufo),
 	 interceptionGreen = new AirCombat(interceptorGreen, ufo),
      interceptionRed = new AirCombat(interceptorRed, ufo),
-     columnBlue = document.querySelectorAll("td.blue"),
-     columnGreen = document.querySelectorAll("td.green"),
-     columnRed = document.querySelectorAll("td.red"),
+     columnResultBlue = document.querySelectorAll(".blue.result"),
+     columnResultGreen = document.querySelectorAll(".green.result"),
+     columnResultRed = document.querySelectorAll(".red.result"),
+     columnStatsBlue = document.querySelectorAll(".blue.value"),
+     columnStatsGreen = document.querySelectorAll(".green.value"),
+     columnStatsRed = document.querySelectorAll(".red.value"),
+     statsBlue,
+     statsGreen,
+     statsRed,
      resultsBlue,
      resultsGreen,
      resultsRed;
@@ -185,22 +191,32 @@ function simulation() {
     console.log("Red INTERCEPTION RESULTS");
     console.log(interceptionRed.outcome);
 
-    console.log("Blue stats");
-    console.log(calculateInterceptorStats(interceptorBlue, ufo, interceptionBlue));
-    console.log("Green stats");
-    console.log(calculateInterceptorStats(interceptorGreen, ufo, interceptionGreen));
-    console.log("Red stats");
-    console.log(calculateInterceptorStats(interceptorRed, ufo, interceptionRed));
     
+    statsBlue = calculateInterceptorStats(interceptorBlue, ufo, interceptionBlue);
+    statsGreen = calculateInterceptorStats(interceptorGreen, ufo, interceptionGreen);
+    statsRed = calculateInterceptorStats(interceptorRed, ufo, interceptionRed);
+
+    displayInterceptorStats(columnStatsBlue, statsBlue);
+    displayInterceptorStats(columnStatsGreen, statsGreen);
+    displayInterceptorStats(columnStatsRed, statsRed);
+    
+    console.log("Blue stats");
+    console.log(statsBlue);
+    console.log("Green stats");
+    console.log(statsGreen);
+    console.log("Red stats");
+    console.log(statsRed);
+
     resultsBlue = calculateResults(interceptionBlue.outcome, interceptorBlue.health, ufo.health)
     resultsGreen = calculateResults(interceptionGreen.outcome, interceptorGreen.health, ufo.health)
     resultsRed = calculateResults(interceptionRed.outcome, interceptorRed.health, ufo.health)
-    displayResults(columnBlue, resultsBlue);
-    displayResults(columnGreen, resultsGreen);
-    displayResults(columnRed, resultsRed);
+
+    displayResults(columnResultBlue, resultsBlue);
+    displayResults(columnResultGreen, resultsGreen);
+    displayResults(columnResultRed, resultsRed);
     // Below reflects cumulative kills across sequential interceptions
     if (sequentialInterceptions) {
-        columnGreen[0].innerHTML = (resultsGreen[0] + resultsBlue[0]) + '%';
-        columnRed[0].innerHTML = (resultsRed[0] + resultsGreen[0] + resultsBlue[0]) + '%';
+        columnResultGreen[0].innerHTML = (resultsGreen[0] + resultsBlue[0]) + '%';
+        columnResultRed[0].innerHTML = (resultsRed[0] + resultsGreen[0] + resultsBlue[0]) + '%';
     }
 }
