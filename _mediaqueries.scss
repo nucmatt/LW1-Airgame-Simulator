@@ -3,7 +3,6 @@
 }
 // Large Laptops/Desktops
 @include mediaLg {
-    
 	.grid-container {
 		grid-template-areas:
 			"strategy strategy"
@@ -19,20 +18,19 @@
 		.subgrid {
 			display: inline-block;
 		}
-    }
-    
-    #foundry {
-        text-align: left;
-        label {
-            white-space: nowrap;
-        }
-    }
+	}
+
+	#foundry {
+		text-align: left;
+		label {
+			white-space: nowrap;
+		}
+	}
 	#ufo {
 		.subgrid {
 			display: grid;
 		}
-    }
-    
+	}
 }
 
 // Tablets/Small Laptops
@@ -58,22 +56,18 @@
 	}
 
 	#foundry {
-        
-        .subgrid {
-            display: grid;
-        }
-        .column {
-            
-            width: 100%;
-        }
-       
-        
+		.subgrid {
+			display: grid;
+		}
+		.column {
+			width: 100%;
+		}
 	}
 }
 
 // Smartphones
 @include mediaSm {
-    body {
-        min-width: 375px;
-    }
+	body {
+		min-width: 375px;
+	}
 }
