@@ -121,14 +121,11 @@ input[type="checkbox"] {
 
 #strategy {
 	grid-area: strategy;
-	// background-color: #eee;
 }
 
 #foundry {
 	grid-area: foundry;
-	// background-color: #ddd;
-	display: inline-block;
-
+	
 	.column {
 		width: 40%;
 		display: inline-block;

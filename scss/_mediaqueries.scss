@@ -1,5 +1,10 @@
 // Wide Screens
 @include mediaXl {
+	#foundry {
+		div {
+			max-width: 250px;
+		}
+	}
 }
 // Large Laptops/Desktops
 @include mediaLg {
